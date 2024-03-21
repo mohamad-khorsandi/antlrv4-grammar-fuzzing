@@ -1,8 +1,18 @@
+import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import org.antlr.v4.runtime.tree.TerminalNodeImpl;
 import parser.ANTLRv4Parser;
 import parser.ANTLRv4ParserBaseVisitor;
 
 public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
+
+    public StringBuilder generate(String ruleName) {
+        if (! Main.ruleMap.containsKey(ruleName))
+            throw new RuntimeException("not such a rule: " + ruleName);
+
+        return this.visitRuleSpec(Main.ruleMap.get(ruleName));
+    }
+
     //general methods
     @Override
     protected StringBuilder defaultResult() {
@@ -15,8 +25,8 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
     }
 
     @Override
-    public StringBuilder visitTerminal(TerminalNode terminalNode) {
-        return new StringBuilder(terminalNode.getText());
+    public StringBuilder visitErrorNode(ErrorNode node) {
+        throw new RuntimeException();
     }
 
     //parser rules
@@ -55,6 +65,8 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
     public StringBuilder visitAtom(ANTLRv4Parser.AtomContext ctx) {
         if (ctx.DOT() != null) {
             return Utils.randomPrintableChar();
+        } else if (ctx.ruleref() != null) {
+            return this.generate(ctx.ruleref().getText()); //RULE_REF
         } else {
             return ctx.getChild(0).accept(this);
         }
@@ -98,8 +110,8 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
     @Override
     public StringBuilder visitCharacterRange(ANTLRv4Parser.CharacterRangeContext ctx) {
         return Utils.randomCharInRange(
-                ctx.children.get(0).getText().charAt(0),
-                ctx.children.get(2).getText().charAt(0)
+                Utils.refineCharLiteral(ctx.STRING_LITERAL(0)),
+                Utils.refineCharLiteral(ctx.STRING_LITERAL(1))
         );
     }
 
@@ -108,6 +120,31 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
         return Utils.randomElem(ctx.setElement()).accept(this);
     }
 
+    @Override
+    public StringBuilder visitTerminalDef(ANTLRv4Parser.TerminalDefContext ctx) {
+        if (ctx.TOKEN_REF() != null) {
+            return this.generate(ctx.TOKEN_REF().getText()); //TOKEN_REF
+        } else if (ctx.STRING_LITERAL() != null) {
+            return Utils.refineStringLiteral(ctx.STRING_LITERAL()); //STRING_LITERAL
+        } else {
+            throw new RuntimeException();
+        }
+    }
+
+    @Override
+    public StringBuilder visitSetElement(ANTLRv4Parser.SetElementContext ctx) {
+        if (ctx.TOKEN_REF() != null) {
+            return this.generate(ctx.TOKEN_REF().getText()); //TOKEN_REF
+        } else if (ctx.STRING_LITERAL() != null) {
+            return Utils.refineStringLiteral(ctx.STRING_LITERAL()); //STRING_LITERAL
+        } else if (ctx.characterRange() != null) {
+            return ctx.characterRange().accept(this);
+        } else if (ctx.LEXER_CHAR_SET() != null) {
+            throw new RuntimeException("not impel");
+        }else {
+            throw new RuntimeException();
+        }
+    }
 }
 
 

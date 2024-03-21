@@ -1,3 +1,4 @@
+import org.antlr.v4.runtime.tree.TerminalNode;
 import parser.ANTLRv4Parser;
 
 import java.util.List;
@@ -29,5 +30,13 @@ public class Utils {
     public static StringBuilder randomCharInRange(int a, int b) {
         int randomAscii = (int) (Math.random() * (b - a + 1)) + a;
         return new StringBuilder(String.valueOf((char) randomAscii));
+    }
+
+    public static StringBuilder refineStringLiteral(TerminalNode terminalNode) {
+        return new StringBuilder(terminalNode.getText().substring(1, terminalNode.getText().length()-1));
+    }
+
+    public static char refineCharLiteral(TerminalNode terminalNode) {
+        return terminalNode.getText().charAt(1);
     }
 }
