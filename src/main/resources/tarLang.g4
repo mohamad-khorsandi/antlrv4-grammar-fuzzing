@@ -1,6 +1,5 @@
 grammar tarLang;
 
-
 start
     : hdr row+ EOF
     ;

@@ -1,5 +1,5 @@
 // Generated from /home/mohammad/Desktop/antlr_fuzzer/src/resources/ANTLRv4Lexer.g4 by ANTLR 4.13.1
-package parser;
+package main.java.parser;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

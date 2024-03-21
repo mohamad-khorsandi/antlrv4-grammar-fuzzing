@@ -1,9 +1,10 @@
 // Generated from /home/mohammad/Desktop/antlr_fuzzer/src/resources/ANTLRv4Parser.g4 by ANTLR 4.13.1
-package parser;
+package main.java.parser;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import parser.ANTLRv4ParserListener;
 
 /**
  * This class provides an empty implementation of {@link ANTLRv4ParserListener},

@@ -17,6 +17,7 @@ public class Main {
         ANTLRv4Lexer lexer = new ANTLRv4Lexer(in);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         ANTLRv4Parser parser = new ANTLRv4Parser(tokens);
+        parser.setErrorHandler(new HardErrorStrategy());
         ANTLRv4Parser.GrammarSpecContext entireTree = parser.grammarSpec();
 
         makeRuleMap(entireTree, parser.getRuleNames());
