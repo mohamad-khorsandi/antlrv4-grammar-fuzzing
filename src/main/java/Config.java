@@ -1,8 +1,10 @@
+package main.java;
+
 import java.util.ArrayList;
 
 public class Config {
-    public static int COUNT = 2;
-    public static String STARTING_RULE = "start";
+    public static double SIGMA = 1;
+    public static String STARTING_RULE = "compilationUnit";
     public static ArrayList<Character> ALL_CHARS = new ArrayList<>();
 
     static {

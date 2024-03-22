@@ -1,3 +1,5 @@
+package main.java;
+
 import org.antlr.v4.runtime.*;
 
 public class HardErrorStrategy extends DefaultErrorStrategy {
