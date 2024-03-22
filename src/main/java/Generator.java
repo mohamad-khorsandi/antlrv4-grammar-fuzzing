@@ -8,17 +8,14 @@ import static main.java.Main.ruleMap;
 import static main.java.Utils.*;
 
 public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
-    static int depth = 0;
     public StringBuilder generate(String ruleName) {
-        if (++depth > Config.MAX_DEPTH)
-            Config.SIGMA = .1;
 
         if (ruleName.equals("EOF"))
             return defaultResult();
 
         if (! ruleMap.containsKey(ruleName))
             throw new RuntimeException("not such a rule: " + ruleName);
-        System.out.println("RULE: " + depth  + " " + ruleName);
+        System.out.println("RULE: " + ruleName);
         return this.visitRuleSpec(ruleMap.get(ruleName));
     }
 
@@ -138,7 +135,7 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
     public StringBuilder visitLexerAtom(ANTLRv4Parser.LexerAtomContext ctx) {
         System.out.println("visitLexerAtom");
         if (ctx.DOT() != null) {
-            throw new RuntimeException("not impel");//intend to find usage
+            throw new RuntimeException("not impel");
         } else if (ctx.LEXER_CHAR_SET() != null) {
             return Utils.randomCharFrom(ctx.LEXER_CHAR_SET().getText());
         } else {
@@ -169,7 +166,7 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
         if (ctx.TOKEN_REF() != null) {
             return this.generate(ctx.TOKEN_REF().getText()); //TOKEN_REF
         } else if (ctx.STRING_LITERAL() != null) {
-            return Utils.refineLiteral(ctx.STRING_LITERAL().getText()); //STRING_LITERAL
+            return Utils.refineLiteral(ctx.STRING_LITERAL().getText()).append(" "); //STRING_LITERAL
         } else {
             throw new RuntimeException();
         }

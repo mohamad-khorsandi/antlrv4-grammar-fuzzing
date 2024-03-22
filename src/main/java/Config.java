@@ -3,11 +3,11 @@ package main.java;
 import java.util.ArrayList;
 
 public class Config {
-    public static final int MAX_DEPTH = 2;
-    public static double SIGMA = 10;
-    public static String STARTING_RULE = "compilationUnit";
+    public static final String INPUT_GRAMMAR = "src/main/resources/Java8.g4";
+    public static double SIGMA = 4;
+    public static String STARTING_RULE = "literal";
     public static ArrayList<Character> ALL_CHARS = new ArrayList<>();
-    public static Integer SEED = 4;
+    public static Integer SEED = null;
 
     static {
         // Add printable ASCII characters

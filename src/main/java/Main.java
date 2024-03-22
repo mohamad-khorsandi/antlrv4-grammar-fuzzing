@@ -13,7 +13,7 @@ public class Main {
     static Generator generator = new Generator();
 
     public static void main(String[] args) throws IOException {
-        CharStream in = CharStreams.fromFileName("src/main/resources/tarLang.g4");
+        CharStream in = CharStreams.fromFileName(Config.INPUT_GRAMMAR);
         ANTLRv4Lexer lexer = new ANTLRv4Lexer(in);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         ANTLRv4Parser parser = new ANTLRv4Parser(tokens);
@@ -23,7 +23,8 @@ public class Main {
         makeRuleMap(entireTree);
 
         String result = String.valueOf(generator.generate(Config.STARTING_RULE));
-        System.out.println("Evaluation result: " + result);
+        result = result.replaceAll("(?<=[{};])", "\n");
+        System.out.println(result);
     }
 
     public static void makeRuleMap (ANTLRv4Parser.GrammarSpecContext entireTree) {

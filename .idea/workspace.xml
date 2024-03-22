@@ -4,16 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="010f43dc-562c-4644-8272-3f9efead4163" name="Changes" comment="c5">
-      <change afterPath="$PROJECT_DIR$/src/main/java/FragmentExtractor.java" afterDir="false" />
+    <list default="true" id="010f43dc-562c-4644-8272-3f9efead4163" name="Changes" comment="c6">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FragmentVisitor.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Generator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Generator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4ParserBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4ParserBaseVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ANTLRv4Lexer.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/antlr_grammar/ANTLRv4Lexer.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ANTLRv4Lexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/antlr_grammar/ANTLRv4Lexer.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ANTLRv4Parser.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/antlr_grammar/ANTLRv4Parser.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Java8.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Java8.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/LexBasic.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/antlr_grammar/LexBasic.g4" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +47,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/mohammad/Desktop/antlr_fuzzer/src",
+    "last_opened_file_path": "/home/mohammad/Desktop/antlr_fuzzer/src/main/resources",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0"
@@ -54,11 +55,13 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/parser" />
       <recent name="$PROJECT_DIR$/src/resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/resources/antlr_grammar" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/main" />
     </key>
@@ -135,7 +138,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711089905404</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="c6">
+      <option name="closed" value="true" />
+      <created>1711094473661</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1711094473661</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -143,15 +154,26 @@
     <MESSAGE value="c3" />
     <MESSAGE value="c4" />
     <MESSAGE value="c5" />
-    <option name="LAST_COMMIT_MESSAGE" value="c5" />
+    <MESSAGE value="c6" />
+    <option name="LAST_COMMIT_MESSAGE" value="c6" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Generator.java</url>
-          <line>114</line>
-          <option name="timeStamp" value="113" />
+          <line>201</line>
+          <option name="timeStamp" value="114" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Generator.java</url>
+          <line>190</line>
+          <option name="timeStamp" value="116" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Utils.java</url>
+          <line>63</line>
+          <option name="timeStamp" value="124" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

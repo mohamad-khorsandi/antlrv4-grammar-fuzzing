@@ -1,8 +1,7 @@
 package main.java;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.regex.Pattern;
+
 import main.java.parser.ANTLRv4Parser;
 
 import static main.java.Config.*;
@@ -31,9 +30,9 @@ public class Utils {
         if (ctx == null ) {
           return 1;
         } else if (ctx.PLUS() != null) {
-            return (int) Math.abs(random.nextGaussian()* SIGMA +1);
+            return (int) (Math.abs(random.nextGaussian()) * SIGMA + 1) ;
         } else if (ctx.STAR() != null) {
-            return (int) Math.abs(random.nextGaussian()* SIGMA);
+            return (int) (Math.abs(random.nextGaussian()) * SIGMA) ;
         } else if (ctx.QUESTION() != null){
             return random.nextInt(2);
         } else {
@@ -51,29 +50,56 @@ public class Utils {
         return new StringBuilder(str.substring(1, str.length()-1));
     }
 
-    public static StringBuilder randomCharExcluding(String nots) {
-        nots = specialReplace(nots);
-        HashSet<Character> hashSet = new HashSet<>();
-        for (int i = 1; i < nots.length()-1; i++)
-            hashSet.add(nots.charAt(i));
-
-        ArrayList<Character> possibleChars = new ArrayList<>();
-        for (Character allChar : ALL_CHARS)
-            if (!hashSet.contains(allChar))
-                possibleChars.add(allChar);
-
-        return c2sb(randomElem(possibleChars));
+    public static StringBuilder randomCharExcluding(String set) {
+        HashSet<Character> notChars = new HashSet<>();
+        charsOfSet(set, notChars);
+        HashSet<Character> allowedChars = new HashSet<>(ALL_CHARS);
+        allowedChars.removeAll(notChars);
+        return c2sb(randomElem(new ArrayList<>(allowedChars)));
     }
 
-    public static StringBuilder randomCharFrom(String str) {
-        str = specialReplace(str);
-        int index = randInRange(1, str.length()-1);
-        return c2sb(str.charAt(index));
+    public static StringBuilder randomCharFrom(String set) {
+        ArrayList<Character> chars = new ArrayList<>();
+        charsOfSet(set, chars);
+        return c2sb(randomElem(chars));
+    }
+
+    public static void charsOfSet(String set, Collection<Character> result) {
+        set = specialReplace(set);
+
+        for (int i = 1; i < set.length()-1; i++) {
+            if (set.charAt(i+1) == '-') {
+                char a = set.charAt(i);
+                char b = set.charAt(i+2);
+                for (int j = a; j <= b; j++)
+                    result.add((char)j);
+                i += 2;
+            } else {
+                result.add(set.charAt(i));
+            }
+        }
     }
 
     public static String specialReplace(String s) {
-        return s.replaceAll("\n", String.valueOf((char) 10))
-                .replaceAll("\r", String.valueOf((char) 13))
-                .replaceAll("\t", String.valueOf((char) 9));
+        HashMap<Character, Character> map =new HashMap<>();
+
+        map.put('r', '\r');
+        map.put('t', '\t');
+        map.put('n', '\n');
+        map.put('\'', '\'');
+        map.put('\\', '\\');
+
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < s.length()-1; i++) {
+            if (s.charAt(i) == '\\') {
+                i++;
+                if (map.containsKey(s.charAt(i)))
+                    result.append(map.get(s.charAt(i)));
+                else throw new RuntimeException();
+            } else {
+                result.append(s.charAt(i));
+            }
+        }
+        return result.toString();
     }
 }
