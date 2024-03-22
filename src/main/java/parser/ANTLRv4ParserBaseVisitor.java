@@ -1,5 +1,5 @@
-// Generated from /home/mohammad/Desktop/antlr_fuzzer/src/resources/ANTLRv4Parser.g4 by ANTLR 4.13.1
-package parser;
+// Generated from /home/mohammad/Desktop/antlr_fuzzer/src/main/resources/ANTLRv4Parser.g4 by ANTLR 4.13.1
+package main.java.parser;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**

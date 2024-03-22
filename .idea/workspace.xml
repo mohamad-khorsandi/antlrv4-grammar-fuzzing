@@ -4,28 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="010f43dc-562c-4644-8272-3f9efead4163" name="Changes" comment="c4">
-      <change afterPath="$PROJECT_DIR$/src/main/java/fragmentVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="010f43dc-562c-4644-8272-3f9efead4163" name="Changes" comment="c5">
+      <change afterPath="$PROJECT_DIR$/src/main/java/FragmentExtractor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FragmentVisitor.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Generator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Generator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HardErrorStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HardErrorStrategy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4Lexer.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4Lexer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4Lexer.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4Parser.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4Parser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4Parser.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4ParserBaseListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4ParserBaseVisitor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4ParserListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4ParserVisitor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/LexerAdaptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/LexerAdaptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/tarLang.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tarLang.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4ParserBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4ParserBaseVisitor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +42,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
-    "Application.main.java.Main.executor": "Debug",
+    "Application.main.java.Main.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "kotlin-language-version-configured": "true",
@@ -139,24 +127,36 @@
       <option name="project" value="LOCAL" />
       <updated>1711030534604</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="c5">
+      <option name="closed" value="true" />
+      <created>1711089905404</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1711089905404</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="c1" />
     <MESSAGE value="c3" />
     <MESSAGE value="c4" />
-    <option name="LAST_COMMIT_MESSAGE" value="c4" />
+    <MESSAGE value="c5" />
+    <option name="LAST_COMMIT_MESSAGE" value="c5" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Main.java</url>
-          <line>28</line>
-          <option name="timeStamp" value="100" />
+          <url>file://$PROJECT_DIR$/src/main/java/Generator.java</url>
+          <line>114</line>
+          <option name="timeStamp" value="113" />
         </line-breakpoint>
       </breakpoints>
+      <default-breakpoints>
+        <breakpoint enabled="true" type="java-exception" />
+      </default-breakpoints>
     </breakpoint-manager>
   </component>
 </project>

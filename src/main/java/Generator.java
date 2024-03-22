@@ -10,7 +10,7 @@ import static main.java.Utils.*;
 public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
     static int depth = 0;
     public StringBuilder generate(String ruleName) {
-        if (++depth > 100)
+        if (++depth > Config.MAX_DEPTH)
             Config.SIGMA = .1;
 
         if (ruleName.equals("EOF"))
@@ -18,7 +18,7 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
 
         if (! ruleMap.containsKey(ruleName))
             throw new RuntimeException("not such a rule: " + ruleName);
-        System.out.println("RULE:" + ruleName);
+        System.out.println("RULE: " + depth  + " " + ruleName);
         return this.visitRuleSpec(ruleMap.get(ruleName));
     }
 
@@ -41,6 +41,7 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
     //parser----------------------------------------------------------------------
     @Override
     public StringBuilder visitRuleAltList(ANTLRv4Parser.RuleAltListContext ctx) {
+        System.out.println("visitRuleAltList");
         return Utils.randomElem(ctx.labeledAlt()).accept(this);
     }
 
@@ -77,6 +78,7 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
 
     @Override
     public StringBuilder visitAtom(ANTLRv4Parser.AtomContext ctx) {
+        System.out.println("visitAtom");
         if (ctx.DOT() != null) {
             throw new RuntimeException("not impel");
         } else if (ctx.ruleref() != null) {
@@ -90,7 +92,7 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
     public StringBuilder visitEbnf(ANTLRv4Parser.EbnfContext ctx) {
         System.out.println("visitEbnf");
         StringBuilder result = new StringBuilder();
-        int count = Utils.ebnfCount(ctx.blockSuffix().ebnfSuffix());
+        int count = Utils.ebnfCount(ctx.blockSuffix());
 
         for (int i = 0; i < count; i++)
             result.append(ctx.block().accept(this));
@@ -109,17 +111,20 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
     // lexer----------------------------------------------------------------------
     @Override
     public StringBuilder visitLexerAltList(ANTLRv4Parser.LexerAltListContext ctx) {
+        System.out.println("visitLexerAltList");
         return Utils.randomElem(ctx.lexerAlt()).accept(this);
     }
 
     @Override
     public StringBuilder visitLexerElements(ANTLRv4Parser.LexerElementsContext ctx) {
+        System.out.println("visitLexerElements");
         return Utils.randomElem(ctx.lexerElement()).accept(this);
     }
 
 
     @Override
     public StringBuilder visitLexerElement(ANTLRv4Parser.LexerElementContext ctx) {
+        System.out.println("visitLexerElement");
         StringBuilder result = new StringBuilder();
         int count = ebnfCount(ctx.ebnfSuffix());
 
@@ -131,6 +136,7 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
 
     @Override
     public StringBuilder visitLexerAtom(ANTLRv4Parser.LexerAtomContext ctx) {
+        System.out.println("visitLexerAtom");
         if (ctx.DOT() != null) {
             throw new RuntimeException("not impel");//intend to find usage
         } else if (ctx.LEXER_CHAR_SET() != null) {
@@ -142,11 +148,13 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
 
     @Override
     public StringBuilder visitLexerBlock(ANTLRv4Parser.LexerBlockContext ctx) {
+        System.out.println("visitLexerBlock");
         return super.visitLexerBlock(ctx);
     }
 
     @Override
     public StringBuilder visitCharacterRange(ANTLRv4Parser.CharacterRangeContext ctx) {
+        System.out.println("visitCharacterRange");
         int rand = randInRange(
                 ctx.STRING_LITERAL(0).getText().charAt(1),
                 ctx.STRING_LITERAL(1).getText().charAt(1)
@@ -157,6 +165,7 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
     // common----------------------------------------------------------------------
     @Override
     public StringBuilder visitTerminalDef(ANTLRv4Parser.TerminalDefContext ctx) {
+        System.out.println("visitTerminalDef");
         if (ctx.TOKEN_REF() != null) {
             return this.generate(ctx.TOKEN_REF().getText()); //TOKEN_REF
         } else if (ctx.STRING_LITERAL() != null) {
@@ -168,6 +177,7 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
 
     @Override
     public StringBuilder visitNotSet(ANTLRv4Parser.NotSetContext ctx) {
+        System.out.println("visitNotSet");
         if (ctx.blockSet() != null) {
             throw new RuntimeException("not impel");
 
@@ -181,6 +191,7 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
 
     @Override
     public StringBuilder visitSetElement(ANTLRv4Parser.SetElementContext ctx) {
+        System.out.println("visitSetElement");
         if (ctx.TOKEN_REF() != null) {
             throw new RuntimeException("not impel");
 

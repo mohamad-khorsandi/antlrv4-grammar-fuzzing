@@ -5,16 +5,20 @@ import java.util.List;
 import java.util.Random;
 import main.java.parser.ANTLRv4Parser;
 
-import static main.java.Config.ALL_CHARS;
-import static main.java.Config.SIGMA;
+import static main.java.Config.*;
 
 public class Utils {
-    static Random random = new Random();
+    static Random random;
     public static <T> T randomElem(List<T> l) {
         return l.get(random.nextInt(l.size()));
     }
     public static int randInRange(int a, int b) {
         return random.nextInt(b - a + 1) + a;
+    }
+
+    static {
+        if (SEED == null) random = new Random();
+        else random = new Random(SEED);
     }
 
     public static StringBuilder c2sb(char c) {
@@ -35,6 +39,12 @@ public class Utils {
         } else {
             throw new RuntimeException();
         }
+    }
+
+    public static int ebnfCount(ANTLRv4Parser.BlockSuffixContext ctx) {
+        if (ctx == null)
+            return 1;
+        else return ebnfCount(ctx.ebnfSuffix());
     }
 
     public static StringBuilder refineLiteral(String str) {
