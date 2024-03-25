@@ -1,9 +1,6 @@
-package main.java;
-import java.util.*;
-import java.util.regex.Pattern;
-
+package main.java.utils;
 import main.java.parser.ANTLRv4Parser;
-
+import java.util.*;
 import static main.java.Config.*;
 
 public class Utils {
@@ -65,7 +62,7 @@ public class Utils {
     }
 
     public static void charsOfSet(String set, Collection<Character> result) {
-        set = specialReplace(set);
+        set = scapeReplace(set);
 
         for (int i = 1; i < set.length()-1; i++) {
             if (set.charAt(i+1) == '-') {
@@ -80,7 +77,7 @@ public class Utils {
         }
     }
 
-    public static String specialReplace(String s) {
+    public static String scapeReplace(String s) {
         HashMap<Character, Character> map =new HashMap<>();
 
         map.put('r', '\r');
@@ -100,6 +97,7 @@ public class Utils {
                 result.append(s.charAt(i));
             }
         }
+        result.append(s.charAt(s.length()-1));
         return result.toString();
     }
 }

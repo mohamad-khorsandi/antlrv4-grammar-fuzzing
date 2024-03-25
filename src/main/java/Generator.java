@@ -2,21 +2,27 @@ package main.java;
 
 import main.java.parser.ANTLRv4Parser;
 import main.java.parser.ANTLRv4ParserBaseVisitor;
+import main.java.utils.Utils;
 import org.antlr.v4.runtime.tree.ErrorNode;
 
 import static main.java.Main.ruleMap;
-import static main.java.Utils.*;
+import static main.java.utils.Utils.*;
 
 public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
+    static int depth = 0;
     public StringBuilder generate(String ruleName) {
-
+        depth++;
+        System.out.println("RULE: " + ruleName);
+        System.out.println("DEPTH: " + depth);
         if (ruleName.equals("EOF"))
             return defaultResult();
 
         if (! ruleMap.containsKey(ruleName))
             throw new RuntimeException("not such a rule: " + ruleName);
-        System.out.println("RULE: " + ruleName);
-        return this.visitRuleSpec(ruleMap.get(ruleName));
+
+        StringBuilder tmp = this.visitRuleSpec(ruleMap.get(ruleName));
+        depth--;
+        return tmp;
     }
 
     //general methods----------------------------------------------------------------------
@@ -40,15 +46,6 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
     public StringBuilder visitRuleAltList(ANTLRv4Parser.RuleAltListContext ctx) {
         System.out.println("visitRuleAltList");
         return Utils.randomElem(ctx.labeledAlt()).accept(this);
-    }
-
-    @Override
-    public StringBuilder visitAlternative(ANTLRv4Parser.AlternativeContext ctx) {
-        System.out.println("visitAlternative");
-        StringBuilder result = new StringBuilder();
-        ctx.element().forEach(elementContext ->
-                result.append(elementContext.accept(this)));
-        return result;
     }
 
     @Override
@@ -111,13 +108,6 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
         System.out.println("visitLexerAltList");
         return Utils.randomElem(ctx.lexerAlt()).accept(this);
     }
-
-    @Override
-    public StringBuilder visitLexerElements(ANTLRv4Parser.LexerElementsContext ctx) {
-        System.out.println("visitLexerElements");
-        return Utils.randomElem(ctx.lexerElement()).accept(this);
-    }
-
 
     @Override
     public StringBuilder visitLexerElement(ANTLRv4Parser.LexerElementContext ctx) {
