@@ -4,15 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="010f43dc-562c-4644-8272-3f9efead4163" name="Changes" comment="c7">
-      <change afterPath="$PROJECT_DIR$/src/main/java/MinimumDepthExtractor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/utils/MapUtil.java" afterDir="false" />
+    <list default="true" id="010f43dc-562c-4644-8272-3f9efead4163" name="Changes" comment="delete gen dir">
+      <change afterPath="$PROJECT_DIR$/src/main/java/MinDepthExtractor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FragmentExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FragmentExtractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Generator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Generator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MinimumDepthExtractor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tarLang.g4" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,12 +40,12 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.main.java.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.main.java.Main.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/mohammad/Desktop/antlr_fuzzer/src/main/resources&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/mohammad/dev/mutation-testing/antlrv4-grammar-fuzzer&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
@@ -152,7 +151,23 @@
       <option name="project" value="LOCAL" />
       <updated>1711099811380</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="c8">
+      <option name="closed" value="true" />
+      <created>1711340493561</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1711340493561</updated>
+    </task>
+    <task id="LOCAL-00008" summary="delete gen dir">
+      <option name="closed" value="true" />
+      <created>1711340708227</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1711340708227</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -162,7 +177,9 @@
     <MESSAGE value="c5" />
     <MESSAGE value="c6" />
     <MESSAGE value="c7" />
-    <option name="LAST_COMMIT_MESSAGE" value="c7" />
+    <MESSAGE value="c8" />
+    <MESSAGE value="delete gen dir" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete gen dir" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

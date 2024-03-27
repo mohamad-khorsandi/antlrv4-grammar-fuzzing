@@ -7,26 +7,37 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import java.io.IOException;
 
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 public class Main {
     public static MapUtil<String, ANTLRv4Parser.RuleSpecContext> ruleMap = new MapUtil<>();
-    static Generator generator = new Generator();
+//todo does this work correct? (ebnfSuffix |)
+
+//    element
+//    : labeledElement (ebnfSuffix |)
+//    | atom (ebnfSuffix |)
+//    | ebnf
+//    | actionBlock (QUESTION predicateOptions?)?
+//    ;
 
     public static void main(String[] args) throws IOException {
-        CharStream in = CharStreams.fromFileName(Config.INPUT_GRAMMAR);
+        ANTLRv4Parser.GrammarSpecContext entireTree = parse(Config.GRAMMAR_PATH);
+
+        makeRuleMap(entireTree);
+
+        MinDepthExtractor minDepthExtractor = new MinDepthExtractor();
+        minDepthExtractor.minDepth(Config.STARTING_RULE);
+
+//        String result = String.valueOf(new Generator().generate(Config.STARTING_RULE));
+//        result = result.replaceAll("(?<=[{};])", "\n");
+//        System.out.println(result);
+    }
+
+    public static ANTLRv4Parser.GrammarSpecContext parse(String grammarPath) throws IOException {
+        CharStream in = CharStreams.fromFileName(grammarPath);
         ANTLRv4Lexer lexer = new ANTLRv4Lexer(in);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         ANTLRv4Parser parser = new ANTLRv4Parser(tokens);
         parser.setErrorHandler(new HardErrorStrategy());
-        ANTLRv4Parser.GrammarSpecContext entireTree = parser.grammarSpec();
-
-        makeRuleMap(entireTree);
-
-//        MinimumDepthExtractor minimumDepthExtractor = new MinimumDepthExtractor();
-//        new ParseTreeWalker().walk(minimumDepthExtractor, entireTree);
-        String result = String.valueOf(generator.generate(Config.STARTING_RULE));
-        result = result.replaceAll("(?<=[{};])", "\n");
-        System.out.println(result);
+        return parser.grammarSpec();
     }
 
     public static void makeRuleMap (ANTLRv4Parser.GrammarSpecContext entireTree) {

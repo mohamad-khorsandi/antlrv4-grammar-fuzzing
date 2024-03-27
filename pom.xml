@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>antlr_fuzzer</artifactId>
+    <artifactId>antlrv4_grammar_fuzzer</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
