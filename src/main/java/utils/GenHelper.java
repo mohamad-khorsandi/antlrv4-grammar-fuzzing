@@ -7,6 +7,7 @@ import static main.java.Config.*;
 import static main.java.Main.random;
 
 public class GenHelper {
+
     public static <T> T randomElem(List<T> l) {
         return l.get(random.nextInt(l.size()));
     }

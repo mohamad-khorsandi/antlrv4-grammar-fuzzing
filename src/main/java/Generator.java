@@ -110,7 +110,6 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
     }
 
 
-
     // lexer----------------------------------------------------------------------
     @Override
     public StringBuilder visitLexerAltList(ANTLRv4Parser.LexerAltListContext ctx) {
