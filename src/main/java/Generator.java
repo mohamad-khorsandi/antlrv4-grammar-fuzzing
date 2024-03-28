@@ -2,14 +2,20 @@ package main.java;
 
 import main.java.parser.ANTLRv4Parser;
 import main.java.parser.ANTLRv4ParserBaseVisitor;
-import main.java.utils.Utils;
+import main.java.utils.GenHelper;
 import org.antlr.v4.runtime.tree.ErrorNode;
 
 import static main.java.Main.ruleMap;
-import static main.java.utils.Utils.*;
+import static main.java.utils.GenHelper.*;
 
 public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
-    static int depth = 0;
+    private int depth = 0;
+    private final int maxDepth;
+
+    public Generator(int maxDepth) {
+        this.maxDepth = maxDepth;
+    }
+
     public StringBuilder generate(String ruleName) {
         depth++;
         System.out.println("RULE: " + ruleName);
@@ -45,7 +51,8 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
     @Override
     public StringBuilder visitRuleAltList(ANTLRv4Parser.RuleAltListContext ctx) {
         System.out.println("visitRuleAltList");
-        return Utils.randomElem(ctx.labeledAlt()).accept(this);
+
+        return GenHelper.randomElem(ctx.labeledAlt()).accept(this);
     }
 
     @Override
@@ -56,7 +63,7 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
 
         } else if (ctx.atom() != null) {
             StringBuilder result = new StringBuilder();
-            int count = Utils.ebnfCount(ctx.ebnfSuffix());
+            int count = GenHelper.ebnfCount(ctx.ebnfSuffix());
 
             for (int i = 0; i < count; i++)
                 result.append(ctx.atom().accept(this));
@@ -73,20 +80,22 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
     @Override
     public StringBuilder visitAtom(ANTLRv4Parser.AtomContext ctx) {
         System.out.println("visitAtom");
-        if (ctx.DOT() != null) {
-            throw new RuntimeException("not impel");
-        } else if (ctx.ruleref() != null) {
-            return this.generate(ctx.ruleref().getText()); //RULE_REF
-        } else {
-            return ctx.getChild(0).accept(this);
-        }
+        if (ctx.ruleref() != null) return generate(ctx.ruleref().getText()); //RULE_REF
+
+        else if (ctx.notSet() != null) return ctx.notSet().accept(this);
+
+        else if (ctx.terminalDef() != null) return ctx.terminalDef().accept(this);
+
+        else if (ctx.DOT() != null) throw new RuntimeException("not impel");
+
+        else throw new RuntimeException();
     }
 
     @Override
     public StringBuilder visitEbnf(ANTLRv4Parser.EbnfContext ctx) {
         System.out.println("visitEbnf");
         StringBuilder result = new StringBuilder();
-        int count = Utils.ebnfCount(ctx.blockSuffix());
+        int count = GenHelper.ebnfCount(ctx.blockSuffix());
 
         for (int i = 0; i < count; i++)
             result.append(ctx.block().accept(this));
@@ -106,7 +115,7 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
     @Override
     public StringBuilder visitLexerAltList(ANTLRv4Parser.LexerAltListContext ctx) {
         System.out.println("visitLexerAltList");
-        return Utils.randomElem(ctx.lexerAlt()).accept(this);
+        return GenHelper.randomElem(ctx.lexerAlt()).accept(this);
     }
 
     @Override
@@ -127,7 +136,7 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
         if (ctx.DOT() != null) {
             throw new RuntimeException("not impel");
         } else if (ctx.LEXER_CHAR_SET() != null) {
-            return Utils.randomCharFrom(ctx.LEXER_CHAR_SET().getText());
+            return GenHelper.randomCharFrom(ctx.LEXER_CHAR_SET().getText());
         } else {
             return ctx.getChild(0).accept(this);
         }
@@ -156,7 +165,7 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
         if (ctx.TOKEN_REF() != null) {
             return this.generate(ctx.TOKEN_REF().getText()); //TOKEN_REF
         } else if (ctx.STRING_LITERAL() != null) {
-            return Utils.refineLiteral(ctx.STRING_LITERAL().getText()).append(" "); //STRING_LITERAL
+            return GenHelper.refineLiteral(ctx.STRING_LITERAL().getText()).append(" "); //STRING_LITERAL
         } else {
             throw new RuntimeException();
         }
@@ -189,7 +198,7 @@ public class Generator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
             throw new RuntimeException("not impel");
 
         } else if (ctx.LEXER_CHAR_SET() != null) {
-            return Utils.randomCharExcluding(ctx.LEXER_CHAR_SET().getText());
+            return GenHelper.randomCharExcluding(ctx.LEXER_CHAR_SET().getText());
 
         }else {
             throw new RuntimeException();

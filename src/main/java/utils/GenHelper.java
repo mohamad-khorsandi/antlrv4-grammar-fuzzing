@@ -1,20 +1,18 @@
 package main.java.utils;
 import main.java.parser.ANTLRv4Parser;
 import java.util.*;
-import static main.java.Config.*;
+import java.util.stream.Collectors;
 
-public class Utils {
-    static Random random;
+import static main.java.Config.*;
+import static main.java.Main.random;
+
+public class GenHelper {
     public static <T> T randomElem(List<T> l) {
         return l.get(random.nextInt(l.size()));
     }
+
     public static int randInRange(int a, int b) {
         return random.nextInt(b - a + 1) + a;
-    }
-
-    static {
-        if (SEED == null) random = new Random();
-        else random = new Random(SEED);
     }
 
     public static StringBuilder c2sb(char c) {
@@ -100,4 +98,6 @@ public class Utils {
         result.append(s.charAt(s.length()-1));
         return result.toString();
     }
+
+
 }
