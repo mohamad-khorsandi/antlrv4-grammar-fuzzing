@@ -1,34 +1,26 @@
 package main.java;
+import main.java.exception_handling.HardErrorStrategy;
 import main.java.parser.ANTLRv4Lexer;
 
 import main.java.parser.ANTLRv4Parser;
 import main.java.utils.MapUtil;
+import main.java.utils.RandUtil;
+import main.java.visitors.Generator;
+import main.java.visitors.MinDepthFinder;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import java.io.IOException;
-import java.util.Map;
-import java.util.Random;
-//todo does this work correct? (ebnfSuffix |)
 
-//    element
-//    : labeledElement (ebnfSuffix |)
-//    | atom (ebnfSuffix |)
-//    | ebnf
-//    | actionBlock (QUESTION predicateOptions?)?
-//    ;
-import static main.java.Config.SEED;
 import static main.java.parser.ANTLRv4Parser.*;
 
 public class Main {
     public static MapUtil<String, RuleSpecContext> ruleMap = new MapUtil<>();
-    public static MapUtil<String, Integer> depthMap = new MapUtil<>();
-    public static Random random;
-    static {
-        if (SEED == null) random = new Random();
-        else random = new Random(SEED);
-    }
-
+    public static RandUtil rand = new RandUtil(Config.SEED);
+    public static MapUtil<String, Integer> ruleDepth;
+    public static MapUtil<AlternativeContext, Integer> altDepth;
+    public static MapUtil<LabeledAltContext, Integer> labelAltDepth;
+    public static MapUtil<LexerAltContext, Integer> lexerAltDepth;
 
     public static void main(String[] args) throws IOException {
         GrammarSpecContext entireTree = parse(Config.GRAMMAR_PATH);
@@ -36,9 +28,9 @@ public class Main {
         makeRuleMap(entireTree);
         makeDepthMap();
         System.out.println();
-//        String result = String.valueOf(new Generator().generate(Config.STARTING_RULE));
-//        result = result.replaceAll("(?<=[{};])", "\n");
-//        System.out.println(result);
+        String result = String.valueOf(new Generator(20).generate(Config.STARTING_RULE));
+        result = result.replaceAll("(?<=[{};])", "\n");
+        System.out.println(result);
     }
 
     public static void makeRuleMap (GrammarSpecContext entireTree) {
@@ -60,8 +52,14 @@ public class Main {
     }
 
     public static void makeDepthMap() {
-        MinDepthExtractor minDepthExtractor = new MinDepthExtractor(depthMap);
+        MinDepthFinder minDepthFinder = new MinDepthFinder();
+        ruleMap.keySet().forEach(minDepthFinder::ruleMinCache);
+
+        ruleDepth = minDepthFinder.ruleCache;
+        altDepth = minDepthFinder.altCache;
+        labelAltDepth = minDepthFinder.labelAltCache;
+        lexerAltDepth = minDepthFinder.lexerAltCache;
 //        minDepthExtractor.findMinDepth("ifThenStatement");
-        ruleMap.keySet().forEach(minDepthExtractor::findMinDepth);
+
     }
 }

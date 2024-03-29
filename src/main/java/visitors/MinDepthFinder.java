@@ -1,33 +1,32 @@
-package main.java;
+package main.java.visitors;
 
 import main.java.parser.ANTLRv4Parser;
 import main.java.parser.ANTLRv4ParserBaseVisitor;
 import main.java.utils.MapUtil;
 
 import static main.java.utils.DepthHelper.*;
+
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 import java.util.Stack;
 
 import static main.java.parser.ANTLRv4Parser.*;
 import static main.java.Main.ruleMap;
 
-public class MinDepthExtractor extends ANTLRv4ParserBaseVisitor<Integer> {
-    public MinDepthExtractor(MapUtil<String, Integer> depthMap) {
-        this.depthMap = depthMap;
-    }
+public class MinDepthFinder extends ANTLRv4ParserBaseVisitor<Integer> {
+    private final Stack<String> callStack = new Stack<>();
 
-    MapUtil<String, Integer> depthMap;
-    Stack<String> callStack = new Stack<>();
+    public MapUtil<String, Integer> ruleCache = new MapUtil<>();
+    public MapUtil<AlternativeContext, Integer> altCache = new MapUtil<>();
+    public MapUtil<LabeledAltContext, Integer> labelAltCache = new MapUtil<>();
+    public MapUtil<LexerAltContext, Integer> lexerAltCache = new MapUtil<>();
 
-    public Integer findMinDepth(String ruleName) {
+    public Integer ruleMinCache(String ruleName) {
         if (ruleName.equals("EOF"))
-            return defaultResult();
+            return defaultResult();//todo return 0
 
         else if (! ruleMap.containsKey(ruleName))
             throw new RuntimeException("not such a rule: " + ruleName);
@@ -35,14 +34,14 @@ public class MinDepthExtractor extends ANTLRv4ParserBaseVisitor<Integer> {
         else if (callStack.search(ruleName) > -1)
             return defaultResult();
 
-        else if (depthMap.containsKey(ruleName))
-            return depthMap.get(ruleName);
+        else if (ruleCache.containsKey(ruleName))
+            return ruleCache.get(ruleName);
 
         else {
             callStack.push(ruleName);
             int depth = visitRuleSpec(ruleMap.get(ruleName));
             callStack.pop();
-            depthMap.putOrThrow(ruleName, depth);
+            ruleCache.putOrThrow(ruleName, depth);
             return depth;
         }
     }
@@ -93,10 +92,19 @@ public class MinDepthExtractor extends ANTLRv4ParserBaseVisitor<Integer> {
     }
 
     @Override
+    public Integer visitLabeledAlt(LabeledAltContext ctx) {
+        return labelAltCache.getCache(ctx, (c) ->
+                c.alternative().accept(this)
+        );
+    }
+
+    @Override
     public Integer visitAlternative(AlternativeContext ctx) {
-        if (ctx.element().isEmpty()) return 0;
-        return ctx.element().stream().map(a -> a.accept(this))
-                .filter(Objects::nonNull).max(Integer::compareTo).orElse(null);
+        return altCache.getCache(ctx, (c) -> {
+            if (c.element().isEmpty()) return 0;
+            return c.element().stream().map(a -> a.accept(this))
+                    .filter(Objects::nonNull).max(Integer::compareTo).orElse(null);
+        });
     }
 
     @Override
@@ -121,11 +129,10 @@ public class MinDepthExtractor extends ANTLRv4ParserBaseVisitor<Integer> {
 
     @Override
     public Integer visitAtom(AtomContext ctx) {
-        if (ctx.ruleref() != null) return findMinDepth(ctx.ruleref().getText()); //RULE_REF
+        if (ctx.ruleref() != null) return ruleMinCache(ctx.ruleref().getText()); //RULE_REF
 
-        else if (ctx.notSet() != null) return ctx.notSet().accept(this);
-
-        else if (ctx.terminalDef() != null) return ctx.terminalDef().accept(this);
+        else if (ctx.notSet() != null || ctx.terminalDef() != null)
+            return notNull(ctx.notSet(), ctx.terminalDef()).accept(this);
 
         else if (ctx.DOT() != null) throw new RuntimeException();
 
@@ -156,10 +163,12 @@ public class MinDepthExtractor extends ANTLRv4ParserBaseVisitor<Integer> {
 
     @Override
     public Integer visitLexerAlt(LexerAltContext ctx) {
-        if (ctx.lexerElements().isEmpty())
-            return 0;
-        else
-            return ctx.lexerElements().accept(this);
+        return lexerAltCache.getCache(ctx, (c) -> {
+            if (c.lexerElements().isEmpty())
+                return 0;
+            else
+                return c.lexerElements().accept(this);
+        });
     }
 
     @Override
@@ -183,13 +192,11 @@ public class MinDepthExtractor extends ANTLRv4ParserBaseVisitor<Integer> {
 
     @Override
     public Integer visitLexerAtom(LexerAtomContext ctx) {
-        if (ctx.characterRange() != null) return 0;
+        if (ctx.characterRange() != null || ctx.LEXER_CHAR_SET() != null)
+            return 0;
 
         else if (ctx.terminalDef() != null || ctx.notSet() != null)
-            return findNotNull(ctx.terminalDef(), ctx.notSet()).accept(this);
-
-        else if (ctx.LEXER_CHAR_SET() != null)
-            return 0;
+            return notNull(ctx.terminalDef(), ctx.notSet()).accept(this);
 
         else if (ctx.DOT() != null)
             throw new RuntimeException();
@@ -209,7 +216,7 @@ public class MinDepthExtractor extends ANTLRv4ParserBaseVisitor<Integer> {
     @Override
     public Integer visitTerminalDef(ANTLRv4Parser.TerminalDefContext ctx) {
         if (ctx.TOKEN_REF() != null) {
-            return this.findMinDepth(ctx.TOKEN_REF().getText()); //TOKEN_REF
+            return this.ruleMinCache(ctx.TOKEN_REF().getText()); //TOKEN_REF
         } else if (ctx.STRING_LITERAL() != null) {
             return 0; //STRING_LITERAL
         } else {

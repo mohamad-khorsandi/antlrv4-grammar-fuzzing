@@ -21,3 +21,11 @@ public class Config {
         ALL_CHARS.add((char)9);  //TAB
     }
 }
+//todo does this work correct? (ebnfSuffix |)
+
+//    element
+//    : labeledElement (ebnfSuffix |)
+//    | atom (ebnfSuffix |)
+//    | ebnf
+//    | actionBlock (QUESTION predicateOptions?)?
+//    ;

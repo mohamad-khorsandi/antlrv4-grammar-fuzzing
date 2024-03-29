@@ -23,7 +23,8 @@ public class DepthHelper {
         return zeroRepPossible(ctx.ebnfSuffix());
     }
 
-    public static final <T> T findNotNull(T... list) {
+    @SafeVarargs
+    public static <T> T notNull(T... list) {
         var tmp = Arrays.stream(list).filter(Objects::nonNull).collect(Collectors.toList());
 
         if(tmp.size() == 1) return tmp.get(0);
