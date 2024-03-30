@@ -1,8 +1,6 @@
 package main.java.visitors;
-
 import main.java.parser.ANTLRv4Parser;
 import main.java.parser.ANTLRv4ParserBaseVisitor;
-import main.java.utils.MapUtil;
 
 import static main.java.utils.DepthHelper.*;
 
@@ -14,36 +12,18 @@ import java.util.Objects;
 import java.util.Stack;
 
 import static main.java.parser.ANTLRv4Parser.*;
-import static main.java.Main.ruleMap;
 
-public class MinDepthFinder extends ANTLRv4ParserBaseVisitor<Integer> {
-    private final Stack<String> callStack = new Stack<>();
+abstract public class DepthFinder extends ANTLRv4ParserBaseVisitor<Integer> {
+    protected final Stack<RuleSpecContext> callStack = new Stack<>();
+    abstract public Integer depthOfRule(String ruleName);
 
-    public MapUtil<String, Integer> ruleCache = new MapUtil<>();
-    public MapUtil<AlternativeContext, Integer> altCache = new MapUtil<>();
-    public MapUtil<LabeledAltContext, Integer> labelAltCache = new MapUtil<>();
-    public MapUtil<LexerAltContext, Integer> lexerAltCache = new MapUtil<>();
+    @Override
+    public Integer visitRuleSpec(RuleSpecContext ctx) {
+        Integer res = super.visitRuleSpec(ctx);
+        if (res == null)
+            throw new RuntimeException();
 
-    public Integer ruleMinCache(String ruleName) {
-        if (ruleName.equals("EOF"))
-            return defaultResult();//todo return 0
-
-        else if (! ruleMap.containsKey(ruleName))
-            throw new RuntimeException("not such a rule: " + ruleName);
-
-        else if (callStack.search(ruleName) > -1)
-            return defaultResult();
-
-        else if (ruleCache.containsKey(ruleName))
-            return ruleCache.get(ruleName);
-
-        else {
-            callStack.push(ruleName);
-            int depth = visitRuleSpec(ruleMap.get(ruleName));
-            callStack.pop();
-            ruleCache.putOrThrow(ruleName, depth);
-            return depth;
-        }
+        return res + 1;
     }
 
     //general methods----------------------------------------------------------------------
@@ -92,19 +72,12 @@ public class MinDepthFinder extends ANTLRv4ParserBaseVisitor<Integer> {
     }
 
     @Override
-    public Integer visitLabeledAlt(LabeledAltContext ctx) {
-        return labelAltCache.getCache(ctx, (c) ->
-                c.alternative().accept(this)
-        );
-    }
-
-    @Override
     public Integer visitAlternative(AlternativeContext ctx) {
-        return altCache.getCache(ctx, (c) -> {
-            if (c.element().isEmpty()) return 0;
-            return c.element().stream().map(a -> a.accept(this))
-                    .filter(Objects::nonNull).max(Integer::compareTo).orElse(null);
-        });
+        if (ctx.element().isEmpty()) return 0;
+
+        else return ctx.element().stream().map(a -> a.accept(this))
+                .filter(Objects::nonNull).max(Integer::compareTo).orElse(null);
+
     }
 
     @Override
@@ -113,7 +86,7 @@ public class MinDepthFinder extends ANTLRv4ParserBaseVisitor<Integer> {
             throw new RuntimeException();
 
         else if (ctx.actionBlock() != null)
-            return null;
+            return 0;
 
         else if (ctx.atom() != null)
             if (zeroRepPossible(ctx.ebnfSuffix()))
@@ -129,7 +102,8 @@ public class MinDepthFinder extends ANTLRv4ParserBaseVisitor<Integer> {
 
     @Override
     public Integer visitAtom(AtomContext ctx) {
-        if (ctx.ruleref() != null) return ruleMinCache(ctx.ruleref().getText()); //RULE_REF
+        if (ctx.ruleref() != null)
+            return this.depthOfRule(ctx.ruleref().getText()); //RULE_REF
 
         else if (ctx.notSet() != null || ctx.terminalDef() != null)
             return notNull(ctx.notSet(), ctx.terminalDef()).accept(this);
@@ -163,12 +137,10 @@ public class MinDepthFinder extends ANTLRv4ParserBaseVisitor<Integer> {
 
     @Override
     public Integer visitLexerAlt(LexerAltContext ctx) {
-        return lexerAltCache.getCache(ctx, (c) -> {
-            if (c.lexerElements().isEmpty())
-                return 0;
-            else
-                return c.lexerElements().accept(this);
-        });
+        if (ctx.lexerElements().isEmpty())
+            return 0;
+        else
+            return ctx.lexerElements().accept(this);
     }
 
     @Override
@@ -205,18 +177,12 @@ public class MinDepthFinder extends ANTLRv4ParserBaseVisitor<Integer> {
     }
 
     // common----------------------------------------------------------------------
-    @Override
-    public Integer visitRuleSpec(RuleSpecContext ctx) {
-        Integer res = super.visitRuleSpec(ctx);
-        if (res == null)
-            throw new RuntimeException();
-        return res + 1;
-    }
 
     @Override
     public Integer visitTerminalDef(ANTLRv4Parser.TerminalDefContext ctx) {
+
         if (ctx.TOKEN_REF() != null) {
-            return this.ruleMinCache(ctx.TOKEN_REF().getText()); //TOKEN_REF
+            return depthOfRule(ctx.TOKEN_REF().getText()); //TOKEN_REF
         } else if (ctx.STRING_LITERAL() != null) {
             return 0; //STRING_LITERAL
         } else {

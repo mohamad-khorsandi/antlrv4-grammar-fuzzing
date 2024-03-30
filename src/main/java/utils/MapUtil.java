@@ -1,30 +1,34 @@
 package main.java.utils;
 
-import main.java.parser.ANTLRv4Parser;
-import org.antlr.v4.runtime.RuleContext;
-
 import java.util.HashMap;
-import java.util.concurrent.Callable;
-import java.util.function.Function;
-import java.util.function.IntSupplier;
-import java.util.function.Supplier;
 
 
 public class MapUtil<K,V> extends HashMap<K,V> {
 
-    public void putOrThrow(K key, V val) {
+    public V simpleGet(Object key) {
+        return super.get(key);
+    }
+
+    public V simplePut(K key, V value) {
+        return super.put(key, value);
+    }
+
+    @Override
+    public V put(K key, V val) {
+        if (val == null) throw new RuntimeException();
+
         if (this.containsKey(key)) {
             throw new RuntimeException(key + "already exists in map");
         } else {
-            put(key, val);
+            super.put(key, val);
         }
+        return val;
     }
 
-    public V getCache(K key, Function<K, V> provider) {
-        if (this.containsKey(key))
-            return this.get(key);
-        else
-            return this.put(key, provider.apply(key));
-
+    @Override
+    public V get(Object key) {
+        if (!this.containsKey(key))
+            throw new RuntimeException();
+        return super.get(key);
     }
 }

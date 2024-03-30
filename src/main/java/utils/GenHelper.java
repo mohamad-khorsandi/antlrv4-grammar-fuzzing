@@ -1,9 +1,9 @@
 package main.java.utils;
 import main.java.parser.ANTLRv4Parser.*;
-import java.util.*;
+import org.antlr.v4.runtime.ParserRuleContext;
 
 import static main.java.Config.*;
-import static main.java.Main.rand;
+import static main.java.Main.*;
 
 public class GenHelper {
     public static StringBuilder c2sb(char c) {
@@ -12,10 +12,16 @@ public class GenHelper {
         return sb;
     }
 
-    public static int ebnfCount(EbnfSuffixContext ctx) {
-        if (ctx == null ) {
-          return 1;
-        } else if (ctx.PLUS() != null) {
+    public static int ebnfCount(ParserRuleContext parserRule, EbnfSuffixContext ctx, int limit) {
+        if (ctx == null ) return 1;
+
+        if (depthFinder.depthOf(parserRule) > limit)
+            if (DepthHelper.zeroRepPossible(ctx))
+                return 0;
+            else
+                throw new RuntimeException();
+
+        if (ctx.PLUS() != null) {
             return (int) (Math.abs(rand.nextGaussian()) * SIGMA + 1) ;
         } else if (ctx.STAR() != null) {
             return (int) (Math.abs(rand.nextGaussian()) * SIGMA) ;
@@ -26,10 +32,10 @@ public class GenHelper {
         }
     }
 
-    public static int ebnfCount(BlockSuffixContext ctx) {
+    public static int ebnfCount(ParserRuleContext parserRule, BlockSuffixContext ctx, int limit) {
         if (ctx == null)
             return 1;
-        else return ebnfCount(ctx.ebnfSuffix());
+        else return ebnfCount(parserRule, ctx.ebnfSuffix(), limit);
     }
 
     public static StringBuilder refineLiteral(String str) {
@@ -37,7 +43,7 @@ public class GenHelper {
     }
 
     public static String replaceScapeChars(String s) {
-        HashMap<Character, Character> map =new HashMap<>();
+        MapUtil<Character, Character> map =new MapUtil<>();
 
         map.put('r', '\r');
         map.put('t', '\t');

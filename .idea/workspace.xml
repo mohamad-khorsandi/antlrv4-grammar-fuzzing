@@ -4,19 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="010f43dc-562c-4644-8272-3f9efead4163" name="Changes" comment="c10">
-      <change afterPath="$PROJECT_DIR$/src/main/java/AbstractGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/NotImpelException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/utils/ListUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/utils/RandUtil.java" afterDir="false" />
+    <list default="true" id="010f43dc-562c-4644-8272-3f9efead4163" name="Changes" comment="c11">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Depth.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/visitors/CacheDepthFinder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FragmentExtractor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Generator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Generator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MinDepthExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MinDepthExtractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/DepthHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/DepthHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/utils/GenHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/GenHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/ListUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/ListUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/utils/MapUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/MapUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/visitors/Generator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/visitors/Generator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/visitors/MinDepthFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +49,8 @@
     &quot;last_opened_file_path&quot;: &quot;/home/mohammad/dev/mutation-testing/antlrv4-grammar-fuzzer&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -199,7 +197,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711614983100</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="c11">
+      <option name="closed" value="true" />
+      <created>1711724473936</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1711724473936</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -213,138 +219,127 @@
     <MESSAGE value="c8" />
     <MESSAGE value="c9" />
     <MESSAGE value="c10" />
-    <option name="LAST_COMMIT_MESSAGE" value="c10" />
+    <MESSAGE value="c11" />
+    <option name="LAST_COMMIT_MESSAGE" value="c11" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/MinDepthExtractor.java</url>
-          <line>95</line>
-          <properties>
-            <option name="lambda-ordinal" value="-1" />
-          </properties>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/MinDepthExtractor.java</url>
-          <line>110</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/MinDepthExtractor.java</url>
-          <line>130</line>
-          <properties>
-            <option name="lambda-ordinal" value="-1" />
-          </properties>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/MinDepthExtractor.java</url>
-          <line>142</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/MinDepthExtractor.java</url>
-          <line>151</line>
-          <properties>
-            <option name="lambda-ordinal" value="-1" />
-          </properties>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/MinDepthExtractor.java</url>
-          <line>158</line>
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
+          <line>149</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/MinDepthExtractor.java</url>
-          <line>172</line>
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
+          <line>163</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/MinDepthExtractor.java</url>
-          <line>178</line>
-          <option name="timeStamp" value="20" />
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/Generator.java</url>
+          <line>123</line>
+          <option name="timeStamp" value="42" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/MinDepthExtractor.java</url>
-          <line>191</line>
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/Generator.java</url>
+          <line>135</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/Generator.java</url>
+          <line>141</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
+          <line>75</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
-          <option name="timeStamp" value="21" />
+          <option name="timeStamp" value="56" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/MinDepthExtractor.java</url>
-          <line>214</line>
-          <option name="timeStamp" value="22" />
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
+          <line>84</line>
+          <option name="timeStamp" value="57" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/MinDepthExtractor.java</url>
-          <line>225</line>
-          <option name="timeStamp" value="23" />
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
+          <line>104</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="58" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/MinDepthExtractor.java</url>
-          <line>235</line>
-          <option name="timeStamp" value="24" />
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
+          <line>117</line>
+          <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/MinDepthExtractor.java</url>
-          <line>75</line>
-          <option name="timeStamp" value="26" />
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
+          <line>126</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
+          <line>133</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
+          <line>139</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
+          <line>147</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
+          <line>153</line>
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
+          <line>166</line>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
+          <line>183</line>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
+          <line>194</line>
+          <option name="timeStamp" value="69" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
+          <line>204</line>
+          <option name="timeStamp" value="70" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Main.java</url>
-          <line>57</line>
-          <option name="timeStamp" value="34" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Generator.java</url>
-          <line>69</line>
-          <option name="timeStamp" value="35" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Generator.java</url>
-          <line>82</line>
-          <option name="timeStamp" value="38" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Generator.java</url>
-          <line>94</line>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Generator.java</url>
-          <line>101</line>
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Generator.java</url>
-          <line>107</line>
-          <option name="timeStamp" value="41" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Generator.java</url>
-          <line>119</line>
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Generator.java</url>
-          <line>131</line>
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Generator.java</url>
-          <line>137</line>
-          <option name="timeStamp" value="44" />
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/CacheDepthFinder.java</url>
+          <line>37</line>
+          <option name="timeStamp" value="84" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

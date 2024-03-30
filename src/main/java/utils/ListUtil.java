@@ -16,7 +16,7 @@ public class ListUtil<T> extends ArrayList<T> {
     }
 
 
-    public static <V> ListUtil<V> by(Collection<V> c, Predicate<V> filter) {
+    public static <V> ListUtil<V> by(Collection<? extends V> c, Predicate<V> filter) {
         ListUtil<V> res = new ListUtil<>();
         c.stream().filter(filter).forEach(res::add);
         return res;
