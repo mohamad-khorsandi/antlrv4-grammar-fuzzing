@@ -1,11 +1,11 @@
-package main.java.utils;
+package utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
+import static main.SingletonInjector.rand;
 
-import static main.java.Main.rand;
 
 public class ListUtil<T> extends ArrayList<T> {
     protected ListUtil(Collection<? extends T> c) {

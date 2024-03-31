@@ -4,16 +4,45 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="010f43dc-562c-4644-8272-3f9efead4163" name="Changes" comment="c11">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Depth.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/visitors/CacheDepthFinder.java" afterDir="false" />
+    <list default="true" id="010f43dc-562c-4644-8272-3f9efead4163" name="Changes" comment="c12">
+      <change afterPath="$PROJECT_DIR$/src/main/java/main/AntlrFuzzer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/main/SingletonInjector.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/utils/MainHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/visitors/AbstractDepthFinder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/visitors/Depth.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Java.g4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/JavaLexer.g4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/JavaParser.g4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/test_grammars/CSV.g4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/test_grammars/bnf.g4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/test_grammars/calculator.g4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/test_grammars/java6.g4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/test_grammars/url.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Depth.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/exception_handling/HardErrorStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/exception_handling/HardErrorStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/exception_handling/NotImpelException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/exception_handling/NotImpelException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4Lexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4ParserBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4ParserBaseListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4ParserBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4ParserBaseVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4ParserListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4ParserListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4ParserVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/ANTLRv4ParserVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/parser/LexerAdaptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/LexerAdaptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/DepthHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/DepthHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/utils/GenHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/GenHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/utils/ListUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/ListUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/utils/MapUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/MapUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/RandUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/RandUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/visitors/AbstractGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/visitors/AbstractGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/visitors/CacheDepthFinder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/visitors/Generator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/visitors/Generator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/visitors/MinDepthFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Java8.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/test_grammars/Java8.g4" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +59,20 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;mohamad-khorsandi&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="2bfdfe7b-ad13-4114-9bd2-65b792f7e9aa" />
+        <option name="url" value="https://github.com/mohamad-khorsandi/antlrv4-grammar-fuzzing.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -39,30 +82,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.main.java.Main.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/mohammad/dev/mutation-testing/antlrv4-grammar-fuzzer&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.AntlrFuzzer.executor": "Debug",
+    "Application.Main.executor": "Run",
+    "Application.main.java.Main.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "extract.method.default.visibility": "private",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/mohammad/dev/mutation-testing/antlrv4-grammar-fuzzer/src/main/resources",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="main.java.utils" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/resources/antlr_grammar" />
       <recent name="$PROJECT_DIR$/src/parser" />
       <recent name="$PROJECT_DIR$/src/resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/test_grammars" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/resources/antlr_grammar" />
       <recent name="$PROJECT_DIR$/src" />
@@ -72,9 +119,22 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.main.java.Main">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
+  <component name="RunManager" selected="Application.AntlrFuzzer">
+    <configuration name="AntlrFuzzer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.AntlrFuzzer" />
+      <module name="antlr_fuzzer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SingletonInjector" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.SingletonInjector" />
       <module name="antlr_fuzzer" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -95,8 +155,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.AntlrFuzzer" />
+        <item itemvalue="Application.SingletonInjector" />
         <item itemvalue="Application.main.java.Main" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -205,7 +266,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711724473936</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="c12">
+      <option name="closed" value="true" />
+      <created>1711775201287</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1711775201287</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -220,22 +289,23 @@
     <MESSAGE value="c9" />
     <MESSAGE value="c10" />
     <MESSAGE value="c11" />
-    <option name="LAST_COMMIT_MESSAGE" value="c11" />
+    <MESSAGE value="c12" />
+    <option name="LAST_COMMIT_MESSAGE" value="c12" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
-          <line>149</line>
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/AbstractDepthFinder.java</url>
+          <line>140</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
-          <line>163</line>
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/AbstractDepthFinder.java</url>
+          <line>154</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
@@ -243,108 +313,104 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/visitors/Generator.java</url>
-          <line>123</line>
+          <line>134</line>
           <option name="timeStamp" value="42" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/visitors/Generator.java</url>
-          <line>135</line>
+          <line>146</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/visitors/Generator.java</url>
-          <line>141</line>
+          <line>152</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
-          <line>75</line>
-          <properties>
-            <option name="lambda-ordinal" value="-1" />
-          </properties>
-          <option name="timeStamp" value="56" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
-          <line>84</line>
-          <option name="timeStamp" value="57" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
-          <line>104</line>
-          <properties>
-            <option name="lambda-ordinal" value="-1" />
-          </properties>
-          <option name="timeStamp" value="58" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
-          <line>117</line>
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/AbstractDepthFinder.java</url>
+          <line>107</line>
           <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
-          <line>126</line>
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/AbstractDepthFinder.java</url>
+          <line>117</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
           <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
-          <line>133</line>
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/AbstractDepthFinder.java</url>
+          <line>124</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
           <option name="timeStamp" value="62" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
-          <line>139</line>
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/AbstractDepthFinder.java</url>
+          <line>130</line>
           <option name="timeStamp" value="63" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
-          <line>147</line>
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/AbstractDepthFinder.java</url>
+          <line>138</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
           <option name="timeStamp" value="64" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
-          <line>153</line>
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/AbstractDepthFinder.java</url>
+          <line>144</line>
           <option name="timeStamp" value="65" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
-          <line>166</line>
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/AbstractDepthFinder.java</url>
+          <line>157</line>
           <option name="timeStamp" value="66" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
-          <line>183</line>
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/AbstractDepthFinder.java</url>
+          <line>174</line>
           <option name="timeStamp" value="68" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
-          <line>194</line>
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/AbstractDepthFinder.java</url>
+          <line>185</line>
           <option name="timeStamp" value="69" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
-          <line>204</line>
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/AbstractDepthFinder.java</url>
+          <line>195</line>
           <option name="timeStamp" value="70" />
         </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/AbstractDepthFinder.java</url>
+          <line>95</line>
+          <option name="timeStamp" value="100" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/main/SingletonInjector.java</url>
+          <line>33</line>
+          <option name="timeStamp" value="102" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/utils/GenHelper.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="107" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/visitors/CacheDepthFinder.java</url>
-          <line>37</line>
-          <option name="timeStamp" value="84" />
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java</url>
+          <line>38</line>
+          <option name="timeStamp" value="111" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/AbstractDepthFinder.java</url>
+          <line>75</line>
+          <option name="timeStamp" value="112" />
         </line-breakpoint>
       </breakpoints>
-      <default-breakpoints>
-        <breakpoint enabled="true" type="java-exception" />
-      </default-breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>

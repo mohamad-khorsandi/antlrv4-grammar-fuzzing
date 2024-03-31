@@ -1,4 +1,4 @@
-package main.java.parser;
+package parser;
 /*
  [The "BSD licence"]
  Copyright (c) 2005-2007 Terence Parr

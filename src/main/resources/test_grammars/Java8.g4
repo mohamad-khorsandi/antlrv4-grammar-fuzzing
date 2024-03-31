@@ -1745,7 +1745,7 @@ JavaLetterOrDigit
 	;
 
 //
-// Additional symbols not defined in the lexical specification
+// Additional symbols not detraced in the lexical specification
 //
 
 AT : '@';

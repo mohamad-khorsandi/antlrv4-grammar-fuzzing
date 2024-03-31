@@ -1,12 +1,13 @@
-package main.java.visitors;
+package visitors;
 
-import main.java.exception_handling.NotImpelException;
-import main.java.parser.ANTLRv4Parser;
-import main.java.parser.ANTLRv4ParserBaseVisitor;
-import main.java.utils.GenHelper;
+import exception_handling.NotImpelException;
+import parser.ANTLRv4Parser;
+import parser.ANTLRv4ParserBaseVisitor;
+import utils.GenHelper;
 import org.antlr.v4.runtime.tree.ErrorNode;
-
-import static main.java.Main.rand;
+import static main.SingletonInjector.*;
+import static utils.GenHelper.refineLiteral;
+import static utils.GenHelper.replaceScapeChars;
 
 abstract class AbstractGenerator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
     protected Integer depthLimit;
@@ -32,11 +33,12 @@ abstract class AbstractGenerator extends ANTLRv4ParserBaseVisitor<StringBuilder>
     // common----------------------------------------------------------------------
     @Override
     public StringBuilder visitTerminalDef(ANTLRv4Parser.TerminalDefContext ctx) {
-        System.out.println("visitTerminalDef");
+        log.trace("visitTerminalDef");
         if (ctx.TOKEN_REF() != null) {
             return this.generate(ctx.TOKEN_REF().getText()); //TOKEN_REF
         } else if (ctx.STRING_LITERAL() != null) {
-            return GenHelper.refineLiteral(ctx.STRING_LITERAL().getText()).append(" "); //STRING_LITERAL
+            String refined = refineLiteral(ctx.STRING_LITERAL().getText());
+            return replaceScapeChars(refined).append(" "); //STRING_LITERAL
         } else {
             throw new RuntimeException();
         }
@@ -44,7 +46,7 @@ abstract class AbstractGenerator extends ANTLRv4ParserBaseVisitor<StringBuilder>
 
     @Override
     public StringBuilder visitNotSet(ANTLRv4Parser.NotSetContext ctx) {
-        System.out.println("visitNotSet");
+        log.trace("visitNotSet");
         if (ctx.blockSet() != null) {
             throw new NotImpelException();
 
@@ -58,7 +60,7 @@ abstract class AbstractGenerator extends ANTLRv4ParserBaseVisitor<StringBuilder>
 
     @Override
     public StringBuilder visitSetElement(ANTLRv4Parser.SetElementContext ctx) {
-        System.out.println("visitSetElement");
+        log.trace("visitSetElement");
 
         if (ctx.TOKEN_REF() != null || ctx.STRING_LITERAL() != null || ctx.characterRange() != null) {
             throw new NotImpelException();

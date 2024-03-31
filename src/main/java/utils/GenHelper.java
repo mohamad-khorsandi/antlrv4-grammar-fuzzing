@@ -1,9 +1,11 @@
-package main.java.utils;
-import main.java.parser.ANTLRv4Parser.*;
+package utils;
+import main.Config;
+import parser.ANTLRv4Parser.*;
 import org.antlr.v4.runtime.ParserRuleContext;
 
-import static main.java.Config.*;
-import static main.java.Main.*;
+import static main.Config.SIGMA;
+import static main.SingletonInjector.*;
+
 
 public class GenHelper {
     public static StringBuilder c2sb(char c) {
@@ -11,7 +13,12 @@ public class GenHelper {
         sb.append(c);
         return sb;
     }
-
+    public static int bernoulli(double p) {
+        if (rand.nextDouble() < p)
+            return 1;
+        else
+            return 0;
+    }
     public static int ebnfCount(ParserRuleContext parserRule, EbnfSuffixContext ctx, int limit) {
         if (ctx == null ) return 1;
 
@@ -26,7 +33,7 @@ public class GenHelper {
         } else if (ctx.STAR() != null) {
             return (int) (Math.abs(rand.nextGaussian()) * SIGMA) ;
         } else if (ctx.QUESTION() != null){
-            return rand.nextInt(2);
+            return bernoulli(Config.QUESTION_PROP);
         } else {
             throw new RuntimeException();
         }
@@ -38,31 +45,23 @@ public class GenHelper {
         else return ebnfCount(parserRule, ctx.ebnfSuffix(), limit);
     }
 
-    public static StringBuilder refineLiteral(String str) {
-        return new StringBuilder(str.substring(1, str.length()-1));
+    public static String refineLiteral(String str) {
+        return str.substring(1, str.length()-1);
     }
 
-    public static String replaceScapeChars(String s) {
-        MapUtil<Character, Character> map =new MapUtil<>();
-
-        map.put('r', '\r');
-        map.put('t', '\t');
-        map.put('n', '\n');
-        map.put('\'', '\'');
-        map.put('\\', '\\');
-
+    public static StringBuilder replaceScapeChars(String s) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < s.length()-1; i++) {
             if (s.charAt(i) == '\\') {
                 i++;
-                if (map.containsKey(s.charAt(i)))
-                    result.append(map.get(s.charAt(i)));
+                if (scapeChars.containsKey(s.charAt(i)))
+                    result.append(scapeChars.get(s.charAt(i)));
                 else throw new RuntimeException();
             } else {
                 result.append(s.charAt(i));
             }
         }
         result.append(s.charAt(s.length()-1));
-        return result.toString();
+        return result;
     }
 }

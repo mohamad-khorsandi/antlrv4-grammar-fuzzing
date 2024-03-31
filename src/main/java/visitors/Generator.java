@@ -1,18 +1,19 @@
-package main.java.visitors;
+package visitors;
 
-import main.java.Main;
-import main.java.exception_handling.NotImpelException;
-import main.java.parser.ANTLRv4Parser.*;
-import main.java.utils.ListUtil;
+import main.SingletonInjector;
+import exception_handling.NotImpelException;
+import parser.ANTLRv4Parser.*;
+import utils.ListUtil;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
-import static main.java.Main.*;
-import static main.java.utils.DepthHelper.notNull;
-import static main.java.utils.GenHelper.*;
-import static main.java.utils.ListUtil.randElem;
+
+import static main.SingletonInjector.*;
+import static utils.DepthHelper.notNull;
+import static utils.GenHelper.*;
+import static utils.ListUtil.randElem;
 
 public class Generator extends AbstractGenerator {
     protected Predicate<ParserRuleContext> filter = (alt) -> depthFinder.depthOf(alt) <= depthLimit;
@@ -26,25 +27,35 @@ public class Generator extends AbstractGenerator {
     }
 
     public StringBuilder generate(String ruleName) {
-        var curMind = depthFinder.ruleDepthMap.get(ruleMap.get(ruleName));
-        System.out.println("\nRULE: " + ruleName + " " + curMind);
-        System.out.println("DEPTH LIMIT: " + depthLimit);
-        if (curMind > depthLimit)
-            throw new RuntimeException();
-
         if (ruleName.equals("EOF")) return defaultResult();
-        if (! ruleMap.containsKey(ruleName)) throw new RuntimeException("not such a rule: " + ruleName);
+
+        if (! ruleNameMap.containsKey(ruleName))
+            throw new RuntimeException("no such a rule");
+
+        var curMind = depthFinder.ruleDepthMap.get(ruleNameMap.get(ruleName));
+
+        if (curMind > depthLimit)
+            throw new RuntimeException("string can not be produced in this depth limit");
+        print(curMind, ruleName);
+
+        if (! ruleNameMap.containsKey(ruleName)) throw new RuntimeException("not such a rule: " + ruleName);
 
         if (--depthLimit < 0) throw new RuntimeException();
-        StringBuilder tmp = this.visitRuleSpec(ruleMap.get(ruleName));
+        StringBuilder tmp = this.visitRuleSpec(ruleNameMap.get(ruleName));
+        log.debug(ruleName + " " + tmp.toString());
         depthLimit++;
         return tmp;
+    }
+
+    public void print(int curMind, String ruleName) {
+        log.debug("rule: " + ruleName + " " + curMind);
+        log.trace("depth limit: " + depthLimit);
     }
 
     //parser----------------------------------------------------------------------
     @Override
     public StringBuilder visitRuleAltList(RuleAltListContext ctx) {
-        System.out.println("visitRuleAltList");
+        log.trace("visitRuleAltList");
         ArrayList<ParserRuleContext> res = new ArrayList<>();
         for (var a : ctx.labeledAlt())
             if(filter.test(a))
@@ -55,7 +66,7 @@ public class Generator extends AbstractGenerator {
 
     @Override
     public StringBuilder visitElement(ElementContext ctx) {
-        System.out.println("visitElement");
+        log.trace("visitElement");
         if (ctx.labeledElement() != null) {
             throw new NotImpelException();
 
@@ -77,7 +88,7 @@ public class Generator extends AbstractGenerator {
 
     @Override
     public StringBuilder visitAtom(AtomContext ctx) {
-        System.out.println("visitAtom");
+        log.trace("visitAtom");
         if (ctx.ruleref() != null) return generate(ctx.ruleref().getText()); //RULE_REF
 
         else if (ctx.notSet() != null || ctx.terminalDef() != null)
@@ -90,7 +101,7 @@ public class Generator extends AbstractGenerator {
 
     @Override
     public StringBuilder visitEbnf(EbnfContext ctx) {
-        System.out.println("visitEbnf");
+        log.trace("visitEbnf");
         StringBuilder result = new StringBuilder();
         int count = ebnfCount(ctx.block(), ctx.blockSuffix(), depthLimit);
 
@@ -102,7 +113,7 @@ public class Generator extends AbstractGenerator {
 
     @Override
     public StringBuilder visitAltList (AltListContext ctx) {
-        System.out.println("visitAltList");
+        log.trace("visitAltList");
 
         return ListUtil.by(ctx.alternative(), filter).randElem().accept(this);
     }
@@ -110,14 +121,14 @@ public class Generator extends AbstractGenerator {
     // lexer----------------------------------------------------------------------
     @Override
     public StringBuilder visitLexerAltList(LexerAltListContext ctx) {
-        System.out.println("visitLexerAltList");
+        log.trace("visitLexerAltList");
 
         return ListUtil.by(ctx.lexerAlt(), filter).randElem().accept(this);
     }
 
     @Override
     public StringBuilder visitLexerElement(LexerElementContext ctx) {
-        System.out.println("visitLexerElement");
+        log.trace("visitLexerElement");
         StringBuilder result = new StringBuilder();
         int count = ebnfCount((ParserRuleContext) ctx.getChild(0), ctx.ebnfSuffix(), depthLimit);
 
@@ -129,7 +140,7 @@ public class Generator extends AbstractGenerator {
 
     @Override
     public StringBuilder visitLexerAtom(LexerAtomContext ctx) {
-        System.out.println("visitLexerAtom");
+        log.trace("visitLexerAtom");
         if (ctx.DOT() != null) {
             throw new NotImpelException();
         } else if (ctx.LEXER_CHAR_SET() != null) {
@@ -141,14 +152,17 @@ public class Generator extends AbstractGenerator {
 
     @Override
     public StringBuilder visitLexerBlock(LexerBlockContext ctx) {
-        System.out.println("visitLexerBlock");
+        log.trace("visitLexerBlock");
         return super.visitLexerBlock(ctx);
     }
 
     @Override
     public StringBuilder visitCharacterRange(CharacterRangeContext ctx) {
-        System.out.println("visitCharacterRange");
-        int rand = Main.rand.randInRange(
+        log.trace("visitCharacterRange");
+        if (ctx.STRING_LITERAL(0).getText().length() != 1 || ctx.STRING_LITERAL(1).getText().length() != 1)
+            throw new NotImpelException();
+
+        int rand = SingletonInjector.rand.randInRange(
                 ctx.STRING_LITERAL(0).getText().charAt(1),
                 ctx.STRING_LITERAL(1).getText().charAt(1)
         );

@@ -1,4 +1,4 @@
-package main.java.exception_handling;
+package exception_handling;
 
 import org.antlr.v4.runtime.*;
 

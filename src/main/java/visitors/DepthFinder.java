@@ -1,212 +1,102 @@
-package main.java.visitors;
-import main.java.parser.ANTLRv4Parser;
-import main.java.parser.ANTLRv4ParserBaseVisitor;
+package visitors;
 
-import static main.java.utils.DepthHelper.*;
+import static parser.ANTLRv4Parser.*;
+import utils.MapUtil;
+import org.antlr.v4.runtime.ParserRuleContext;
+import static main.SingletonInjector.ruleNameMap;
 
-import org.antlr.v4.runtime.tree.ErrorNode;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.RuleNode;
+public class DepthFinder extends AbstractDepthFinder {
+    final public MapUtil<ParserRuleContext, Integer> depthMap = new MapUtil<>();
+    final public MapUtil<RuleSpecContext, Integer> ruleDepthMap = new MapUtil<>();
 
-import java.util.Objects;
-import java.util.Stack;
+    public int depthOf(ParserRuleContext ctx) {
+        if (ctx instanceof LabeledAltContext)
+            return depthOfLabeledAlt((LabeledAltContext) ctx).getDepth();
 
-import static main.java.parser.ANTLRv4Parser.*;
+        if (ctx instanceof AlternativeContext)
+            return depthOfAlternative((AlternativeContext) ctx).getDepth();
 
-abstract public class DepthFinder extends ANTLRv4ParserBaseVisitor<Integer> {
-    protected final Stack<RuleSpecContext> callStack = new Stack<>();
-    abstract public Integer depthOfRule(String ruleName);
+        if (ctx instanceof LexerAltContext)
+            return depthOfLexerAlt((LexerAltContext) ctx).getDepth();
 
-    @Override
-    public Integer visitRuleSpec(RuleSpecContext ctx) {
-        Integer res = super.visitRuleSpec(ctx);
-        if (res == null)
-            throw new RuntimeException();
+        if (ctx instanceof AtomContext)
+            return depthOfAtom((AtomContext) ctx).getDepth();
 
-        return res + 1;
-    }
+        if (ctx instanceof BlockContext)
+            return depthOfBlock((BlockContext) ctx).getDepth();
 
-    //general methods----------------------------------------------------------------------
-    @Override
-    protected Integer defaultResult() {
-        return null;
-    }
+        if (ctx instanceof LexerAtomContext)
+            return depthOfLexerAtom((LexerAtomContext) ctx).getDepth();
 
-    @Override
-    protected Integer aggregateResult(Integer aggregate, Integer nextResult) {
-        if (aggregate == null && nextResult != null) {
-            return nextResult;
-        } else if (aggregate != null && nextResult == null) {
-            return aggregate;
-        } else if (aggregate == null) {
-            return null;
-        } else {
-            throw new RuntimeException();
-        }
-    }
+        if (ctx instanceof LexerBlockContext)
+            return depthOfLexerBlock((LexerBlockContext) ctx).getDepth();
 
-    @Override
-    public Integer visitErrorNode(ErrorNode node) {
         throw new RuntimeException();
     }
 
-    @Override
-    public Integer visitChildren(RuleNode node) {
-        Integer result = this.defaultResult();
-        int n = node.getChildCount();
+    private Depth depthOfLexerBlock(LexerBlockContext ctx) {
+        if (! depthMap.containsKey(ctx))
+            depthMap.put(ctx, super.visitLexerBlock(ctx).getDepth());
 
-        for(int i = 0; i < n; ++i) {
-            ParseTree c = node.getChild(i);
-            Integer childResult = c.accept(this);
-            result = this.aggregateResult(result, childResult);
-        }
-
-        return result;
-    }
-
-    //parser -------------------------------------------------------------------------
-    @Override
-    public Integer visitRuleAltList(RuleAltListContext ctx) {
-        return ctx.labeledAlt().stream().map(la -> la.accept(this))
-                .filter(Objects::nonNull).min(Integer::compareTo).orElseThrow();
+        return Depth.of(depthMap.get(ctx));
     }
 
     @Override
-    public Integer visitAlternative(AlternativeContext ctx) {
-        if (ctx.element().isEmpty()) return 0;
+    public Depth depthOfRule(String ruleName) {
+        if (ruleName.equals("EOF")) return Depth.of(0);
+        if (! ruleNameMap.containsKey(ruleName)) throw new RuntimeException("no such a rule");
+        var ctx = ruleNameMap.get(ruleName);
+        if (callStack.search(ctx) > -1) return Depth.recur();
+        if (ruleDepthMap.containsKey(ctx)) return Depth.of(ruleDepthMap.get(ctx));
 
-        else return ctx.element().stream().map(a -> a.accept(this))
-                .filter(Objects::nonNull).max(Integer::compareTo).orElse(null);
+        callStack.push(ctx);
+        Depth res = super.visitRuleSpec(ctx);
+        if (!res.isRecur())
+            ruleDepthMap.put(ctx, res.getDepth());
+        callStack.pop();
 
+        return res;
     }
 
-    @Override
-    public Integer visitElement(ElementContext ctx) {
-        if (ctx.labeledElement() != null)
-            throw new RuntimeException();
+    public Depth depthOfLabeledAlt(LabeledAltContext ctx) {
+        if (! depthMap.containsKey(ctx))
+            depthMap.put(ctx, super.visitLabeledAlt(ctx).getDepth());
 
-        else if (ctx.actionBlock() != null)
-            return 0;
-
-        else if (ctx.atom() != null)
-            if (zeroRepPossible(ctx.ebnfSuffix()))
-                return 0;
-            else
-                return ctx.atom().accept(this);
-
-        else if (ctx.ebnf() != null)
-            return ctx.ebnf().accept(this);
-
-        else throw new RuntimeException();
+        return Depth.of(depthMap.get(ctx));
     }
 
-    @Override
-    public Integer visitAtom(AtomContext ctx) {
-        if (ctx.ruleref() != null)
-            return this.depthOfRule(ctx.ruleref().getText()); //RULE_REF
+    public Depth depthOfAlternative(AlternativeContext ctx) {
+        if (! depthMap.containsKey(ctx))
+            depthMap.put(ctx, super.visitAlternative(ctx).getDepth());
 
-        else if (ctx.notSet() != null || ctx.terminalDef() != null)
-            return notNull(ctx.notSet(), ctx.terminalDef()).accept(this);
-
-        else if (ctx.DOT() != null) throw new RuntimeException();
-
-        else throw new RuntimeException();
+        return Depth.of(depthMap.get(ctx));
     }
 
-    @Override
-    public Integer visitEbnf(EbnfContext ctx) {
-        if (zeroRepPossible(ctx.blockSuffix())) {
-            return 0;
-        } else {
-            return ctx.block().accept(this);
-        }
+    public Depth depthOfLexerAlt(LexerAltContext ctx) {
+        if (! depthMap.containsKey(ctx))
+            depthMap.put(ctx, super.visitLexerAlt(ctx).getDepth());
+
+        return Depth.of(depthMap.get(ctx));
     }
 
-    @Override
-    public Integer visitAltList(AltListContext ctx) {
-        return ctx.alternative().stream().map(a -> a.accept(this))
-                .filter(Objects::nonNull).min(Integer::compareTo).orElseThrow();
+    public Depth depthOfBlock(BlockContext ctx) {
+        if (! depthMap.containsKey(ctx))
+            depthMap.put(ctx, super.visitBlock(ctx).getDepth());
+
+        return Depth.of(depthMap.get(ctx));
     }
 
-    //lexer ----------------------------------------------------------------------
-    @Override
-    public Integer visitLexerAltList(LexerAltListContext ctx) {
-        return ctx.lexerAlt().stream().map(a -> a.accept(this))
-                .filter(Objects::nonNull).min(Integer::compareTo).orElseThrow();
+    public Depth depthOfAtom(AtomContext ctx) {
+        if (! depthMap.containsKey(ctx))
+            depthMap.put(ctx, super.visitAtom(ctx).getDepth());
+
+        return Depth.of(depthMap.get(ctx));
     }
 
-    @Override
-    public Integer visitLexerAlt(LexerAltContext ctx) {
-        if (ctx.lexerElements().isEmpty())
-            return 0;
-        else
-            return ctx.lexerElements().accept(this);
+    public Depth depthOfLexerAtom(LexerAtomContext ctx) {
+        if (! depthMap.containsKey(ctx))
+            depthMap.put(ctx, super.visitLexerAtom(ctx).getDepth());
+
+        return Depth.of(depthMap.get(ctx));
     }
-
-    @Override
-    public Integer visitLexerElements(LexerElementsContext ctx) {
-        return ctx.lexerElement().stream().map(a -> a.accept(this))
-                .filter(Objects::nonNull).max(Integer::compareTo).orElseThrow();
-    }
-
-    @Override
-    public Integer visitLexerElement(LexerElementContext ctx) {
-        if (ctx.actionBlock() != null) {
-            return null;
-        } else {
-            if (zeroRepPossible(ctx.ebnfSuffix())) {
-                return 0;
-            } else {
-                return ctx.getChild(0).accept(this);
-            }
-        }
-    }
-
-    @Override
-    public Integer visitLexerAtom(LexerAtomContext ctx) {
-        if (ctx.characterRange() != null || ctx.LEXER_CHAR_SET() != null)
-            return 0;
-
-        else if (ctx.terminalDef() != null || ctx.notSet() != null)
-            return notNull(ctx.terminalDef(), ctx.notSet()).accept(this);
-
-        else if (ctx.DOT() != null)
-            throw new RuntimeException();
-
-        else throw new RuntimeException();
-    }
-
-    // common----------------------------------------------------------------------
-
-    @Override
-    public Integer visitTerminalDef(ANTLRv4Parser.TerminalDefContext ctx) {
-
-        if (ctx.TOKEN_REF() != null) {
-            return depthOfRule(ctx.TOKEN_REF().getText()); //TOKEN_REF
-        } else if (ctx.STRING_LITERAL() != null) {
-            return 0; //STRING_LITERAL
-        } else {
-            throw new RuntimeException();
-        }
-    }
-
-    @Override
-    public Integer visitNotSet(ANTLRv4Parser.NotSetContext ctx) {
-         if (ctx.setElement() != null) {
-            return ctx.setElement().accept(this);
-
-        } else {
-            throw new RuntimeException();
-        }
-    }
-
-    @Override
-    public Integer visitSetElement(ANTLRv4Parser.SetElementContext ctx) {
-        if (ctx.LEXER_CHAR_SET() != null)
-            return 0;
-
-        else
-            throw new RuntimeException();
-    }
-
 }

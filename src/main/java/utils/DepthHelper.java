@@ -1,6 +1,6 @@
-package main.java.utils;
+package utils;
 
-import main.java.parser.ANTLRv4Parser;
+import parser.ANTLRv4Parser;
 
 import java.util.Arrays;
 import java.util.Objects;

@@ -1,9 +1,9 @@
 // Generated from /home/mohammad/Desktop/antlr_fuzzer/src/main/resources/ANTLRv4Parser.g4 by ANTLR 4.13.1
-package main.java.parser;
+package parser;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
- * This interface defines a complete generic visitor for a parse tree produced
+ * This interface detraces a complete generic visitor for a parse tree produced
  * by {@link ANTLRv4Parser}.
  *
  * @param <T> The return type of the visit operation. Use {@link Void} for

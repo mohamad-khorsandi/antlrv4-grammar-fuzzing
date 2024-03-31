@@ -1,9 +1,9 @@
 // Generated from /home/mohammad/Desktop/antlr_fuzzer/src/main/resources/ANTLRv4Parser.g4 by ANTLR 4.13.1
-package main.java.parser;
+package parser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
- * This interface defines a complete listener for a parse tree produced by
+ * This interface detraces a complete listener for a parse tree produced by
  * {@link ANTLRv4Parser}.
  */
 public interface ANTLRv4ParserListener extends ParseTreeListener {
