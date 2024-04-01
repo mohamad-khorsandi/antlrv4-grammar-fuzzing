@@ -1,18 +1,18 @@
 package visitors;
-import exception_handling.NotImpelException;
 import parser.ANTLRv4Parser;
 import parser.ANTLRv4ParserBaseVisitor;
 
+import static main.SingletonInjector.printableChars;
 import static utils.DepthHelper.*;
-
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
-
 import java.util.Objects;
 import java.util.Stack;
 
 import static parser.ANTLRv4Parser.*;
+import static utils.GenHelper.c2sb;
+import static utils.ListUtil.randElem;
 
 abstract public class AbstractDepthFinder extends ANTLRv4ParserBaseVisitor<Depth> {
     protected final Stack<RuleSpecContext> callStack = new Stack<>();
@@ -73,7 +73,7 @@ abstract public class AbstractDepthFinder extends ANTLRv4ParserBaseVisitor<Depth
     @Override
     public Depth visitElement(ElementContext ctx) {
         if (ctx.labeledElement() != null)
-            throw new NotImpelException();
+            return ctx.labeledElement().accept(this);
 
         else if (ctx.actionBlock() != null)
             return Depth.of(0);
@@ -88,6 +88,11 @@ abstract public class AbstractDepthFinder extends ANTLRv4ParserBaseVisitor<Depth
             return ctx.ebnf().accept(this);
 
         else throw new RuntimeException();
+    }
+
+    @Override
+    public Depth visitLabeledElement(LabeledElementContext ctx) {
+        return notNull(ctx.atom(), ctx.block()).accept(this);
     }
 
     @Override
@@ -162,7 +167,7 @@ abstract public class AbstractDepthFinder extends ANTLRv4ParserBaseVisitor<Depth
             return notNull(ctx.terminalDef(), ctx.notSet()).accept(this);
 
         else if (ctx.DOT() != null)
-            throw new RuntimeException();
+            return Depth.of(0);
 
         else throw new RuntimeException();
     }

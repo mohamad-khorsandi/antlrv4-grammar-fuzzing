@@ -30,7 +30,7 @@ public class Generator extends AbstractGenerator {
         if (ruleName.equals("EOF")) return defaultResult();
 
         if (! ruleNameMap.containsKey(ruleName))
-            throw new RuntimeException("no such a rule");
+            throw new RuntimeException("no such a rule " + ruleName);
 
         var curMind = depthFinder.ruleDepthMap.get(ruleNameMap.get(ruleName));
 
@@ -42,7 +42,6 @@ public class Generator extends AbstractGenerator {
 
         if (--depthLimit < 0) throw new RuntimeException();
         StringBuilder tmp = this.visitRuleSpec(ruleNameMap.get(ruleName));
-        log.debug(ruleName + " " + tmp.toString());
         depthLimit++;
         return tmp;
     }
@@ -68,7 +67,7 @@ public class Generator extends AbstractGenerator {
     public StringBuilder visitElement(ElementContext ctx) {
         log.trace("visitElement");
         if (ctx.labeledElement() != null) {
-            throw new NotImpelException();
+            return ctx.labeledElement().accept(this);
 
         } else if (ctx.atom() != null) {
             StringBuilder result = new StringBuilder();
@@ -87,6 +86,11 @@ public class Generator extends AbstractGenerator {
     }
 
     @Override
+    public StringBuilder visitLabeledElement(LabeledElementContext ctx) {
+        return notNull(ctx.atom(), ctx.block()).accept(this);
+    }
+
+    @Override
     public StringBuilder visitAtom(AtomContext ctx) {
         log.trace("visitAtom");
         if (ctx.ruleref() != null) return generate(ctx.ruleref().getText()); //RULE_REF
@@ -94,7 +98,8 @@ public class Generator extends AbstractGenerator {
         else if (ctx.notSet() != null || ctx.terminalDef() != null)
             return notNull(ctx.notSet(), ctx.terminalDef()).accept(this);
 
-        else if (ctx.DOT() != null) throw new NotImpelException();
+        else if (ctx.DOT() != null)
+            return c2sb(randElem(printableChars));
 
         else throw new RuntimeException();
     }
@@ -142,7 +147,7 @@ public class Generator extends AbstractGenerator {
     public StringBuilder visitLexerAtom(LexerAtomContext ctx) {
         log.trace("visitLexerAtom");
         if (ctx.DOT() != null) {
-            throw new NotImpelException();
+            return c2sb(randElem(printableChars));
         } else if (ctx.LEXER_CHAR_SET() != null) {
             return rand.randomCharFrom(ctx.LEXER_CHAR_SET().getText());
         } else {

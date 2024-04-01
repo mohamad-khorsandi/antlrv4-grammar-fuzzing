@@ -10,35 +10,34 @@ public class DepthFinder extends AbstractDepthFinder {
     final public MapUtil<RuleSpecContext, Integer> ruleDepthMap = new MapUtil<>();
 
     public int depthOf(ParserRuleContext ctx) {
+        if (depthMap.containsKey(ctx))
+            return depthMap.simpleGet(ctx);
+
         if (ctx instanceof LabeledAltContext)
-            return depthOfLabeledAlt((LabeledAltContext) ctx).getDepth();
+            depthMap.put(ctx, super.visitLabeledAlt((LabeledAltContext) ctx).getDepth());
 
-        if (ctx instanceof AlternativeContext)
-            return depthOfAlternative((AlternativeContext) ctx).getDepth();
+        else if (ctx instanceof AlternativeContext)
+            depthMap.put(ctx, super.visitAlternative((AlternativeContext) ctx).getDepth());
 
-        if (ctx instanceof LexerAltContext)
-            return depthOfLexerAlt((LexerAltContext) ctx).getDepth();
+        else if (ctx instanceof LexerAltContext)
+            depthMap.put(ctx, super.visitLexerAlt((LexerAltContext) ctx).getDepth());
 
-        if (ctx instanceof AtomContext)
-            return depthOfAtom((AtomContext) ctx).getDepth();
+        else if (ctx instanceof AtomContext)
+            depthMap.put(ctx, super.visitAtom((AtomContext) ctx).getDepth());
 
-        if (ctx instanceof BlockContext)
-            return depthOfBlock((BlockContext) ctx).getDepth();
+        else if (ctx instanceof BlockContext)
+            depthMap.put(ctx, super.visitBlock((BlockContext) ctx).getDepth());
 
-        if (ctx instanceof LexerAtomContext)
-            return depthOfLexerAtom((LexerAtomContext) ctx).getDepth();
+        else if (ctx instanceof LexerAtomContext)
+            depthMap.put(ctx, super.visitLexerAtom((LexerAtomContext) ctx).getDepth());
 
-        if (ctx instanceof LexerBlockContext)
-            return depthOfLexerBlock((LexerBlockContext) ctx).getDepth();
+        else if (ctx instanceof LexerBlockContext)
+            depthMap.put(ctx, super.visitLexerBlock((LexerBlockContext) ctx).getDepth());
 
-        throw new RuntimeException();
-    }
+        else
+            throw new RuntimeException();
 
-    private Depth depthOfLexerBlock(LexerBlockContext ctx) {
-        if (! depthMap.containsKey(ctx))
-            depthMap.put(ctx, super.visitLexerBlock(ctx).getDepth());
-
-        return Depth.of(depthMap.get(ctx));
+        return depthMap.get(ctx);
     }
 
     @Override
@@ -56,47 +55,5 @@ public class DepthFinder extends AbstractDepthFinder {
         callStack.pop();
 
         return res;
-    }
-
-    public Depth depthOfLabeledAlt(LabeledAltContext ctx) {
-        if (! depthMap.containsKey(ctx))
-            depthMap.put(ctx, super.visitLabeledAlt(ctx).getDepth());
-
-        return Depth.of(depthMap.get(ctx));
-    }
-
-    public Depth depthOfAlternative(AlternativeContext ctx) {
-        if (! depthMap.containsKey(ctx))
-            depthMap.put(ctx, super.visitAlternative(ctx).getDepth());
-
-        return Depth.of(depthMap.get(ctx));
-    }
-
-    public Depth depthOfLexerAlt(LexerAltContext ctx) {
-        if (! depthMap.containsKey(ctx))
-            depthMap.put(ctx, super.visitLexerAlt(ctx).getDepth());
-
-        return Depth.of(depthMap.get(ctx));
-    }
-
-    public Depth depthOfBlock(BlockContext ctx) {
-        if (! depthMap.containsKey(ctx))
-            depthMap.put(ctx, super.visitBlock(ctx).getDepth());
-
-        return Depth.of(depthMap.get(ctx));
-    }
-
-    public Depth depthOfAtom(AtomContext ctx) {
-        if (! depthMap.containsKey(ctx))
-            depthMap.put(ctx, super.visitAtom(ctx).getDepth());
-
-        return Depth.of(depthMap.get(ctx));
-    }
-
-    public Depth depthOfLexerAtom(LexerAtomContext ctx) {
-        if (! depthMap.containsKey(ctx))
-            depthMap.put(ctx, super.visitLexerAtom(ctx).getDepth());
-
-        return Depth.of(depthMap.get(ctx));
     }
 }

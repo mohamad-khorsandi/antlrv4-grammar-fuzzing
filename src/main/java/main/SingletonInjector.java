@@ -15,13 +15,13 @@ public class SingletonInjector {
     public static final MapUtil<String, RuleSpecContext> ruleNameMap = new MapUtil<>();
     public static final DepthFinder depthFinder = new DepthFinder();
     public static final Logger log = LoggerFactory.getLogger(SingletonInjector.class);
-    public static final ArrayList<Character> allChars = new ArrayList<>();
+    public static final ArrayList<Character> printableChars = new ArrayList<>();
     public static final MapUtil<Character, Character> scapeChars =new MapUtil<>();
 
 
     static {
         for (int i = 32; i <= 126; i++) {
-            allChars.add((char) i);
+            printableChars.add((char) i);
         }
 
         scapeChars.put('b', '\b');
@@ -32,7 +32,5 @@ public class SingletonInjector {
         scapeChars.put('\"', '\"');
         scapeChars.put('\'', '\'');
         scapeChars.put('\\', '\\');
-
-        allChars.addAll(scapeChars.values());
     }
 }

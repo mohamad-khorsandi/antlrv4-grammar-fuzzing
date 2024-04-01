@@ -22,7 +22,7 @@ public class RandUtil extends Random {
     public StringBuilder randCharExcluding(String set) {
         HashSet<Character> notChars = new HashSet<>();
         charsOfSet(set, notChars);
-        HashSet<Character> allowedChars = new HashSet<>(allChars);
+        HashSet<Character> allowedChars = new HashSet<>(printableChars);
         allowedChars.removeAll(notChars);
         return c2sb(ListUtil.by(allowedChars).randElem());
     }

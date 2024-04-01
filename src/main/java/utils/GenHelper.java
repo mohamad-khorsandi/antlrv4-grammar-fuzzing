@@ -1,4 +1,5 @@
 package utils;
+import exception_handling.NotImpelException;
 import main.Config;
 import parser.ANTLRv4Parser.*;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -54,14 +55,18 @@ public class GenHelper {
         for (int i = 0; i < s.length()-1; i++) {
             if (s.charAt(i) == '\\') {
                 i++;
-                if (scapeChars.containsKey(s.charAt(i)))
-                    result.append(scapeChars.get(s.charAt(i)));
-                else throw new RuntimeException();
+                result.append(getScapeChar(s.charAt(i)));
             } else {
                 result.append(s.charAt(i));
             }
         }
         result.append(s.charAt(s.length()-1));
         return result;
+    }
+
+    public static char getScapeChar(char afterSlash) {
+        if (afterSlash == 'u')
+            throw new NotImpelException();
+        return scapeChars.get(afterSlash);
     }
 }

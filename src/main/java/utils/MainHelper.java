@@ -16,7 +16,7 @@ import static main.SingletonInjector.*;
 public class MainHelper {
     public static void analyzeSyntax(ParseResult<CompilationUnit> parseResult) {
         if (parseResult.isSuccessful()) {
-            log.info("Code is syntactically correct.");
+            log.info("generated code is syntactically correct.");
         } else {
             parseResult.getProblems().forEach(System.err::println);
             System.exit(0);
