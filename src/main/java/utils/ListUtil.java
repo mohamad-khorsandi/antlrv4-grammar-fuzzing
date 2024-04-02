@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
-import static main.SingletonInjector.rand;
-
-
+import static fuzzer.SingletonInjector.*;
 public class ListUtil<T> extends ArrayList<T> {
     protected ListUtil(Collection<? extends T> c) {
         super(c);
@@ -32,6 +30,8 @@ public class ListUtil<T> extends ArrayList<T> {
     }
 
     public static <S> S randElem(List<S> list) {
-        return list.get(rand.nextInt(list.size()));
+        int a = rand.nextInt(list.size());
+        System.out.println(a);
+        return list.get(a);
     }
 }

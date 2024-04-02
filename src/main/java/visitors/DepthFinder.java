@@ -3,7 +3,7 @@ package visitors;
 import static parser.ANTLRv4Parser.*;
 import utils.MapUtil;
 import org.antlr.v4.runtime.ParserRuleContext;
-import static main.SingletonInjector.ruleNameMap;
+import static fuzzer.SingletonInjector.ruleNameMap;
 
 public class DepthFinder extends AbstractDepthFinder {
     final public MapUtil<ParserRuleContext, Integer> depthMap = new MapUtil<>();

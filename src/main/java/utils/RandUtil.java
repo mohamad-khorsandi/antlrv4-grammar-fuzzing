@@ -4,19 +4,23 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Random;
 
-import static main.SingletonInjector.*;
+import static fuzzer.SingletonInjector.*;
 import static utils.GenHelper.*;
 
 public class RandUtil extends Random {
-    public RandUtil(Integer seed) {
-        super();
-        if (seed != null) {
-          this.setSeed(seed);
+
+    public static RandUtil by(Integer seed) {
+        if (seed == null) {
+            seed = Math.toIntExact(System.currentTimeMillis() % Integer.MAX_VALUE);
+            log.info("random seed: " + seed);
         }
+        RandUtil instance = new RandUtil();
+        instance.setSeed(seed);
+        return instance;
     }
 
     public int randInRange(int a, int b) {
-        return rand.nextInt(b - a + 1) + a;
+        return this.nextInt(b - a + 1) + a;
     }
 
     public StringBuilder randCharExcluding(String set) {

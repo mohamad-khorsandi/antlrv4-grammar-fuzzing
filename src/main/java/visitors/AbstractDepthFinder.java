@@ -2,7 +2,7 @@ package visitors;
 import parser.ANTLRv4Parser;
 import parser.ANTLRv4ParserBaseVisitor;
 
-import static main.SingletonInjector.printableChars;
+import static fuzzer.SingletonInjector.printableChars;
 import static utils.DepthHelper.*;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;

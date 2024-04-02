@@ -8,6 +8,15 @@
     <artifactId>antlrv4_grammar_fuzzer</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <distributionManagement>
+        <repository>
+            <id>antlrv4-grammar-fuzzing</id>
+            <name>antlrv4 grammar fuzzing</name>
+            <url>https://github.com/mohamad-khorsandi/antlrv4-grammar-fuzzing</url>
+        </repository>
+    </distributionManagement>
+
+
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>

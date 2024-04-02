@@ -1,11 +1,11 @@
 package utils;
 import exception_handling.NotImpelException;
-import main.Config;
 import parser.ANTLRv4Parser.*;
 import org.antlr.v4.runtime.ParserRuleContext;
 
-import static main.Config.SIGMA;
-import static main.SingletonInjector.*;
+import static fuzzer.FuzzerConfig.PLUS_STAR_GAUSSIAN_SIGMA;
+import static fuzzer.FuzzerConfig.QUESTION_BERNOULLI_PROP;
+import static fuzzer.SingletonInjector.*;
 
 
 public class GenHelper {
@@ -30,11 +30,11 @@ public class GenHelper {
                 throw new RuntimeException();
 
         if (ctx.PLUS() != null) {
-            return (int) (Math.abs(rand.nextGaussian()) * SIGMA + 1) ;
+            return (int) (Math.abs(rand.nextGaussian()) * PLUS_STAR_GAUSSIAN_SIGMA + 1) ;
         } else if (ctx.STAR() != null) {
-            return (int) (Math.abs(rand.nextGaussian()) * SIGMA) ;
+            return (int) (Math.abs(rand.nextGaussian()) * PLUS_STAR_GAUSSIAN_SIGMA) ;
         } else if (ctx.QUESTION() != null){
-            return bernoulli(Config.QUESTION_PROP);
+            return bernoulli(QUESTION_BERNOULLI_PROP);
         } else {
             throw new RuntimeException();
         }

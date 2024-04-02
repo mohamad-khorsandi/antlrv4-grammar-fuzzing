@@ -11,7 +11,7 @@ import parser.ANTLRv4Lexer;
 import parser.ANTLRv4Parser;
 
 import java.io.IOException;
-import static main.SingletonInjector.*;
+import static fuzzer.SingletonInjector.*;
 
 public class MainHelper {
     public static void analyzeSyntax(ParseResult<CompilationUnit> parseResult) {

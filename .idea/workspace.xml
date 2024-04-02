@@ -4,19 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="010f43dc-562c-4644-8272-3f9efead4163" name="Changes" comment="c13">
+    <list default="true" id="010f43dc-562c-4644-8272-3f9efead4163" name="Changes" comment="c14">
+      <change afterPath="$PROJECT_DIR$/src/main/java/fuzzer/FuzzerConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/AntlrFuzzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/AntlrFuzzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/SingletonInjector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/SingletonInjector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/AntlrFuzzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fuzzer/AntlrFuzzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/Config.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/SingletonInjector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fuzzer/SingletonInjector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/utils/GenHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/GenHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/ListUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/ListUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/utils/MainHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/MainHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/utils/RandUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/RandUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/visitors/AbstractDepthFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/visitors/AbstractDepthFinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/visitors/AbstractGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/visitors/AbstractGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/visitors/Generator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/visitors/Generator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Java.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Java.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/antlr_grammar/ANTLRv4Lexer.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/antlr_grammar/ANTLRv4Lexer.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/antlr_grammar/ANTLRv4Parser.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/antlr_grammar/ANTLRv4Parser.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/test.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +71,7 @@
     "extract.method.default.visibility": "private",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/mohammad/dev/mutation-testing/antlrv4-grammar-fuzzer/src/main/resources",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Problems",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
     "run.code.analysis.last.selected.profile": "pProject Default"
@@ -95,11 +100,11 @@
   </component>
   <component name="RunManager" selected="Application.AntlrFuzzer">
     <configuration name="AntlrFuzzer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="main.AntlrFuzzer" />
+      <option name="MAIN_CLASS_NAME" value="fuzzer.AntlrFuzzer" />
       <module name="antlr_fuzzer" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="main.*" />
+          <option name="PATTERN" value="fuzzer.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -108,7 +113,7 @@
       </method>
     </configuration>
     <configuration name="SingletonInjector" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="main.SingletonInjector" />
+      <option name="MAIN_CLASS_NAME" value="fuzzer.SingletonInjector" />
       <module name="antlr_fuzzer" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -256,7 +261,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711896292922</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="c14">
+      <option name="closed" value="true" />
+      <created>1711979547215</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1711979547215</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -273,7 +286,8 @@
     <MESSAGE value="c11" />
     <MESSAGE value="c12" />
     <MESSAGE value="c13" />
-    <option name="LAST_COMMIT_MESSAGE" value="c13" />
+    <MESSAGE value="c14" />
+    <option name="LAST_COMMIT_MESSAGE" value="c14" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -373,9 +387,26 @@
           <line>100</line>
           <option name="timeStamp" value="100" />
         </line-breakpoint>
-        <breakpoint enabled="true" type="java-exception">
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/Generator.java</url>
+          <line>29</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="121" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/visitors/Generator.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="123" />
+        </line-breakpoint>
+        <breakpoint type="java-exception">
           <properties class="java.lang.RuntimeException" package="java.lang" />
           <option name="timeStamp" value="119" />
+        </breakpoint>
+        <breakpoint type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="120" />
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>

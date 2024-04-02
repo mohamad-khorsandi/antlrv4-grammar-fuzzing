@@ -1,6 +1,6 @@
 package visitors;
 
-import main.SingletonInjector;
+
 import exception_handling.NotImpelException;
 import parser.ANTLRv4Parser.*;
 import utils.ListUtil;
@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 
-import static main.SingletonInjector.*;
+import static fuzzer.SingletonInjector.*;
 import static utils.DepthHelper.notNull;
 import static utils.GenHelper.*;
 import static utils.ListUtil.randElem;
 
 public class Generator extends AbstractGenerator {
-    protected Predicate<ParserRuleContext> filter = (alt) -> depthFinder.depthOf(alt) <= depthLimit;
+    protected Predicate<ParserRuleContext> heightFilter = (alt) -> depthFinder.depthOf(alt) <= depthLimit;
 
     public Generator(int maxDepth) {
         this.depthLimit = maxDepth;
@@ -57,7 +57,7 @@ public class Generator extends AbstractGenerator {
         log.trace("visitRuleAltList");
         ArrayList<ParserRuleContext> res = new ArrayList<>();
         for (var a : ctx.labeledAlt())
-            if(filter.test(a))
+            if(heightFilter.test(a))
                 res.add(a);
 
         return randElem(res).accept(this);
@@ -120,7 +120,7 @@ public class Generator extends AbstractGenerator {
     public StringBuilder visitAltList (AltListContext ctx) {
         log.trace("visitAltList");
 
-        return ListUtil.by(ctx.alternative(), filter).randElem().accept(this);
+        return ListUtil.by(ctx.alternative(), heightFilter).randElem().accept(this);
     }
 
     // lexer----------------------------------------------------------------------
@@ -128,7 +128,7 @@ public class Generator extends AbstractGenerator {
     public StringBuilder visitLexerAltList(LexerAltListContext ctx) {
         log.trace("visitLexerAltList");
 
-        return ListUtil.by(ctx.lexerAlt(), filter).randElem().accept(this);
+        return ListUtil.by(ctx.lexerAlt(), heightFilter).randElem().accept(this);
     }
 
     @Override
@@ -167,11 +167,11 @@ public class Generator extends AbstractGenerator {
         if (ctx.STRING_LITERAL(0).getText().length() != 1 || ctx.STRING_LITERAL(1).getText().length() != 1)
             throw new NotImpelException();
 
-        int rand = SingletonInjector.rand.randInRange(
+        int randNum = rand.randInRange(
                 ctx.STRING_LITERAL(0).getText().charAt(1),
                 ctx.STRING_LITERAL(1).getText().charAt(1)
         );
-        return c2sb((char) rand);
+        return c2sb((char) randNum);
     }
 }
 

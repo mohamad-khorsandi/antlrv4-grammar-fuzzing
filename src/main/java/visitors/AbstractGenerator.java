@@ -5,7 +5,7 @@ import parser.ANTLRv4Parser;
 import parser.ANTLRv4ParserBaseVisitor;
 import utils.GenHelper;
 import org.antlr.v4.runtime.tree.ErrorNode;
-import static main.SingletonInjector.*;
+import static fuzzer.SingletonInjector.*;
 import static utils.GenHelper.refineLiteral;
 import static utils.GenHelper.replaceScapeChars;
 

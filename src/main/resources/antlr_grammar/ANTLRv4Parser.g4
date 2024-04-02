@@ -48,7 +48,7 @@ options {
     tokenVocab = ANTLRv4Lexer;
 }
 
-// The main entry point for parsing a v4 grammar.
+// The fuzzer entry point for parsing a v4 grammar.
 grammarSpec
     : grammarDecl prequelConstruct* rules modeSpec* EOF
     ;

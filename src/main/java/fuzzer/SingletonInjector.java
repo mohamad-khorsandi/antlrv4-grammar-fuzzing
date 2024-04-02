@@ -1,4 +1,4 @@
-package main;
+package fuzzer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,10 +8,11 @@ import visitors.DepthFinder;
 
 import java.util.ArrayList;
 
+import static fuzzer.FuzzerConfig.SEED;
 import static parser.ANTLRv4Parser.*;
 
 public class SingletonInjector {
-    public static final RandUtil rand = new RandUtil(Config.SEED);
+    public static final RandUtil rand = new RandUtil();
     public static final MapUtil<String, RuleSpecContext> ruleNameMap = new MapUtil<>();
     public static final DepthFinder depthFinder = new DepthFinder();
     public static final Logger log = LoggerFactory.getLogger(SingletonInjector.class);
@@ -20,6 +21,7 @@ public class SingletonInjector {
 
 
     static {
+        rand.setSeed(SEED);
         for (int i = 32; i <= 126; i++) {
             printableChars.add((char) i);
         }
