@@ -2,7 +2,6 @@ package visitors;
 import parser.ANTLRv4Parser;
 import parser.ANTLRv4ParserBaseVisitor;
 
-import static fuzzer.SingletonInjector.printableChars;
 import static utils.DepthHelper.*;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -11,10 +10,8 @@ import java.util.Objects;
 import java.util.Stack;
 
 import static parser.ANTLRv4Parser.*;
-import static utils.GenHelper.c2sb;
-import static utils.ListUtil.randElem;
 
-abstract public class AbstractDepthFinder extends ANTLRv4ParserBaseVisitor<Depth> {
+abstract public class AbstractDepthVisitor extends ANTLRv4ParserBaseVisitor<Depth> {
     protected final Stack<RuleSpecContext> callStack = new Stack<>();
     abstract public Depth depthOfRule(String ruleName);
 

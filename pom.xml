@@ -4,18 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
+    <groupId>ir.mohamad-khorsandi</groupId>
     <artifactId>antlrv4_grammar_fuzzer</artifactId>
     <version>1.0-SNAPSHOT</version>
-
-    <distributionManagement>
-        <repository>
-            <id>antlrv4-grammar-fuzzing</id>
-            <name>antlrv4 grammar fuzzing</name>
-            <url>https://github.com/mohamad-khorsandi/antlrv4-grammar-fuzzing</url>
-        </repository>
-    </distributionManagement>
-
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -42,6 +33,5 @@
             <version>LATEST</version>
         </dependency>
     </dependencies>
-
 
 </project>

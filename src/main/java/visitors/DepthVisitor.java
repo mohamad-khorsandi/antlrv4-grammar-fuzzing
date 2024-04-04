@@ -1,13 +1,21 @@
 package visitors;
 
 import static parser.ANTLRv4Parser.*;
+
+import fuzzer.AntlrFuzzer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import utils.MapUtil;
 import org.antlr.v4.runtime.ParserRuleContext;
-import static fuzzer.SingletonInjector.ruleNameMap;
 
-public class DepthFinder extends AbstractDepthFinder {
-    final public MapUtil<ParserRuleContext, Integer> depthMap = new MapUtil<>();
-    final public MapUtil<RuleSpecContext, Integer> ruleDepthMap = new MapUtil<>();
+public class DepthVisitor extends AbstractDepthVisitor {
+    final private MapUtil<ParserRuleContext, Integer> depthMap = new MapUtil<>();
+    final private MapUtil<RuleSpecContext, Integer> ruleDepthMap = new MapUtil<>();
+    final private MapUtil<String, RuleSpecContext> rules;
+
+    public DepthVisitor(MapUtil<String, RuleSpecContext> rules) {
+        this.rules = rules;
+    }
 
     public int depthOf(ParserRuleContext ctx) {
         if (depthMap.containsKey(ctx))
@@ -43,8 +51,8 @@ public class DepthFinder extends AbstractDepthFinder {
     @Override
     public Depth depthOfRule(String ruleName) {
         if (ruleName.equals("EOF")) return Depth.of(0);
-        if (! ruleNameMap.containsKey(ruleName)) throw new RuntimeException("no such a rule");
-        var ctx = ruleNameMap.get(ruleName);
+        if (! rules.containsKey(ruleName)) throw new RuntimeException("no such a rule");
+        var ctx = rules.get(ruleName);
         if (callStack.search(ctx) > -1) return Depth.recur();
         if (ruleDepthMap.containsKey(ctx)) return Depth.of(ruleDepthMap.get(ctx));
 

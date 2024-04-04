@@ -3,16 +3,22 @@ package visitors;
 import exception_handling.NotImpelException;
 import parser.ANTLRv4Parser;
 import parser.ANTLRv4ParserBaseVisitor;
-import utils.GenHelper;
 import org.antlr.v4.runtime.tree.ErrorNode;
-import static fuzzer.SingletonInjector.*;
-import static utils.GenHelper.refineLiteral;
+import utils.GenHelper;
+import utils.RandUtil;
+
+import static fuzzer.StateLessData.log;
 import static utils.GenHelper.replaceScapeChars;
 
-abstract class AbstractGenerator extends ANTLRv4ParserBaseVisitor<StringBuilder> {
-    protected Integer depthLimit;
+abstract class AbstractGenerateVisitor extends ANTLRv4ParserBaseVisitor<StringBuilder> {
+    final protected GenHelper helper = new GenHelper();
+    final protected RandUtil rand;
 
-    abstract public StringBuilder generate(String ruleName);
+    public AbstractGenerateVisitor(Integer seed) {
+        this.rand = RandUtil.by(seed, helper);
+    }
+
+    abstract protected StringBuilder generate(String ruleName);
 
     //general methods----------------------------------------------------------------------
     @Override
@@ -37,7 +43,7 @@ abstract class AbstractGenerator extends ANTLRv4ParserBaseVisitor<StringBuilder>
         if (ctx.TOKEN_REF() != null) {
             return this.generate(ctx.TOKEN_REF().getText()); //TOKEN_REF
         } else if (ctx.STRING_LITERAL() != null) {
-            String refined = refineLiteral(ctx.STRING_LITERAL().getText());
+            String refined = helper.refineLiteral(ctx.STRING_LITERAL().getText());
             return replaceScapeChars(refined).append(" "); //STRING_LITERAL
         } else {
             throw new RuntimeException();
