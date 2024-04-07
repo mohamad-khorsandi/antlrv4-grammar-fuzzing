@@ -12,19 +12,16 @@ import static utils.GenHelper.*;
 import static parser.ANTLRv4Parser.BlockSuffixContext;
 
 public class RandUtil extends Random {
-    final private GenHelper helper;
-    private RandUtil(GenHelper helper) {
-        this.helper = helper;
+    private RandUtil(long seed) {
+        super(seed);
     }
 
-    public static RandUtil by(Integer seed, GenHelper helper) {
+    public static RandUtil by(Integer seed) {
         if (seed == null) {
             seed = Math.toIntExact(System.currentTimeMillis() % Integer.MAX_VALUE);
             log.info("random seed: " + seed);
         }
-        RandUtil instance = new RandUtil(helper);
-        instance.setSeed(seed);
-        return instance;
+        return new RandUtil(seed);
     }
 
     public int randInRange(int a, int b) {
@@ -36,27 +33,27 @@ public class RandUtil extends Random {
         charsOfSet(set, notChars);
         HashSet<Character> allowedChars = new HashSet<>(printableChars);
         allowedChars.removeAll(notChars);
-        return helper.c2sb(randElem(new ArrayList<>(allowedChars)));
+        return c2sb(randElem(new ArrayList<>(allowedChars)));
     }
 
     public StringBuilder randomCharFrom(String set) {
         List<Character> chars = new ArrayList<>();
         charsOfSet(set, chars);
-        return helper.c2sb(randElem(chars));
+        return c2sb(randElem(chars));
     }
 
     private static void charsOfSet(String set, Collection<Character> result) {
         StringBuilder sb = replaceScapeChars(set);
 
-        for (int i = 1; i < set.length()-1; i++) {
-            if (set.charAt(i+1) == '-') {
+        for (int i = 1; i < sb.length()-1; i++) {
+            if (sb.charAt(i+1) == '-') {
                 char a = sb.charAt(i);
-                char b = set.charAt(i+2);
+                char b = sb.charAt(i+2);
                 for (int j = a; j <= b; j++)
                     result.add((char)j);
                 i += 2;
             } else {
-                result.add(set.charAt(i));
+                result.add(sb.charAt(i));
             }
         }
     }
@@ -96,7 +93,6 @@ public class RandUtil extends Random {
 
     public <S> S randElem(List<S> list) {
         int a = nextInt(list.size());
-        System.out.println(a);
         return list.get(a);
     }
 }

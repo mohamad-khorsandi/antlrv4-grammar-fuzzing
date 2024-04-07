@@ -1,5 +1,9 @@
 package fuzzer;
 
+import com.github.javaparser.JavaParser;
+import com.github.javaparser.ParseResult;
+import com.github.javaparser.StaticJavaParser;
+import com.github.javaparser.ast.CompilationUnit;
 import exception_handling.HardErrorStrategy;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -9,6 +13,7 @@ import parser.ANTLRv4Parser;
 import parser.ANTLRv4Parser.RuleSpecContext;
 import parser.ANTLRv4Parser.GrammarSpecContext;
 import utils.MapUtil;
+import utils.PostProcessor;
 import visitors.GenerateVisitor;
 
 import java.io.IOException;
@@ -18,14 +23,26 @@ import java.io.IOException;
 public class AntlrFuzzer {
     private final GenerateVisitor generator;
 
+    public static void main(String[] args) throws IOException {
+        AntlrFuzzer fuzzer = new AntlrFuzzer("src/main/resources/Java8.g4", 941295160);
+
+        String result = fuzzer.fuzz("compilationUnit", 15, 2, .7);
+        System.out.println(result);
+        result = PostProcessor.prettify(result);
+        System.out.println(result);
+        PostProcessor.analyzeSyntax(result);
+
+    }
+
     public AntlrFuzzer(String grammar_path, Integer seed) throws IOException {
         GrammarSpecContext entireTree = parse(grammar_path);
         MapUtil<String, RuleSpecContext> rules = makeRuleMap(entireTree);
         generator = new GenerateVisitor(rules, seed);
     }
 
-    public String fuzz(String stringRule, FuzzParams params) {
-        return generator.generate(stringRule, params);
+    public String fuzz(String startingRule, int maxDepth, double plusStarGaussianSigma, double questionBernoulliProp) {
+        FuzzParams params = new FuzzParams(startingRule, maxDepth, plusStarGaussianSigma, questionBernoulliProp);
+        return generator.generate(params);
     }
 
     public MapUtil<String, RuleSpecContext> makeRuleMap (GrammarSpecContext entireTree) {

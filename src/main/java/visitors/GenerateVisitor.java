@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 import static fuzzer.StateLessData.printableChars;
 import static utils.DepthHelper.notNull;
+import static utils.GenHelper.c2sb;
 
 public class GenerateVisitor extends AbstractGenerateVisitor {
     private final Predicate<ParserRuleContext> depthFilter;
@@ -30,14 +31,14 @@ public class GenerateVisitor extends AbstractGenerateVisitor {
         super(seed);
         this.depthFinder = new DepthVisitor(rules);
         this.rules = rules;
-        depthFilter = (alt) -> depthFinder.depthOf(alt) <= params.maxDepth;
+        depthFilter = (alt) -> depthFinder.depthOf(alt) <= remainingDepth;
 
     }
 
-    public String generate(String ruleName, FuzzParams params) {
+    public String generate(FuzzParams params) {
         remainingDepth = params.maxDepth;
         this.params = params;
-        return generate(ruleName).toString();
+        return generate(params.startingRule).toString();
     }
 
     protected StringBuilder generate(String ruleName) {
@@ -114,7 +115,7 @@ public class GenerateVisitor extends AbstractGenerateVisitor {
             return notNull(ctx.notSet(), ctx.terminalDef()).accept(this);
 
         else if (ctx.DOT() != null)
-            return helper.c2sb(rand.randElem(printableChars));
+            return c2sb(rand.randElem(printableChars));
 
         else throw new RuntimeException();
     }
@@ -167,7 +168,7 @@ public class GenerateVisitor extends AbstractGenerateVisitor {
     public StringBuilder visitLexerAtom(LexerAtomContext ctx) {
         log.trace("visitLexerAtom");
         if (ctx.DOT() != null) {
-            return helper.c2sb(rand.randElem(printableChars));
+            return c2sb(rand.randElem(printableChars));
         } else if (ctx.LEXER_CHAR_SET() != null) {
             return rand.randomCharFrom(ctx.LEXER_CHAR_SET().getText());
         } else {
@@ -191,7 +192,7 @@ public class GenerateVisitor extends AbstractGenerateVisitor {
                 ctx.STRING_LITERAL(0).getText().charAt(1),
                 ctx.STRING_LITERAL(1).getText().charAt(1)
         );
-        return helper.c2sb((char) randNum);
+        return c2sb((char) randNum);
     }
 }
 

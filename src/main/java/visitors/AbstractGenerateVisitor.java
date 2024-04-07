@@ -8,14 +8,14 @@ import utils.GenHelper;
 import utils.RandUtil;
 
 import static fuzzer.StateLessData.log;
+import static utils.GenHelper.refineLiteral;
 import static utils.GenHelper.replaceScapeChars;
 
 abstract class AbstractGenerateVisitor extends ANTLRv4ParserBaseVisitor<StringBuilder> {
-    final protected GenHelper helper = new GenHelper();
     final protected RandUtil rand;
 
     public AbstractGenerateVisitor(Integer seed) {
-        this.rand = RandUtil.by(seed, helper);
+        this.rand = RandUtil.by(seed);
     }
 
     abstract protected StringBuilder generate(String ruleName);
@@ -43,8 +43,11 @@ abstract class AbstractGenerateVisitor extends ANTLRv4ParserBaseVisitor<StringBu
         if (ctx.TOKEN_REF() != null) {
             return this.generate(ctx.TOKEN_REF().getText()); //TOKEN_REF
         } else if (ctx.STRING_LITERAL() != null) {
-            String refined = helper.refineLiteral(ctx.STRING_LITERAL().getText());
-            return replaceScapeChars(refined).append(" "); //STRING_LITERAL
+            String refined = refineLiteral(ctx.STRING_LITERAL().getText());
+            if (refined.length() > 1)
+                return new StringBuilder(" ").append(replaceScapeChars(refined)).append(" ");
+            return replaceScapeChars(refined); //STRING_LITERAL
+
         } else {
             throw new RuntimeException();
         }

@@ -7,6 +7,9 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class DepthHelper {
+    private DepthHelper() {
+    }
+
     public static boolean zeroRepPossible(ANTLRv4Parser.EbnfSuffixContext ctx) {
         if (ctx == null) return false;
 

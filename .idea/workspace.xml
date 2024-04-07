@@ -4,28 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="010f43dc-562c-4644-8272-3f9efead4163" name="Changes" comment="c15">
-      <change afterPath="$PROJECT_DIR$/src/main/java/fuzzer/FuzzParams.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fuzzer/StateLessData.java" afterDir="false" />
+    <list default="true" id="010f43dc-562c-4644-8272-3f9efead4163" name="Changes" comment="heaviest refactor ever">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Java8.g4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Java8Lexer.g4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Java8Parser.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/JavaLexer.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/JavaLexer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/JavaLexer.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/antlr_grammar/ANTLRv4Lexer.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/antlr_grammar/ANTLRv4Lexer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/antlr_grammar/ANTLRv4Lexer.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fuzzer/AntlrFuzzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fuzzer/AntlrFuzzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fuzzer/FuzzerConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fuzzer/SingletonInjector.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fuzzer/StateLessData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fuzzer/StateLessData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/DepthHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/DepthHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/utils/GenHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/GenHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/ListUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/MainHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/MainHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/MainHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/PostProcessor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/utils/RandUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/RandUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/visitors/AbstractDepthFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/visitors/AbstractDepthVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/visitors/AbstractGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/visitors/AbstractGenerateVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/visitors/DepthFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/visitors/DepthVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/visitors/Generator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/visitors/GenerateVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/visitors/AbstractGenerateVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/visitors/AbstractGenerateVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/visitors/GenerateVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/visitors/GenerateVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Java.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/test_grammars/Java.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/JavaLexer.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/test_grammars/JavaLexer.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/JavaLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/test_grammars/JavaLexer.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/JavaParser.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/test_grammars/JavaParser.g4" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +62,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;Application.AntlrFuzzer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.AntlrFuzzer.executor&quot;: &quot;Debug&quot;,
     &quot;Application.Main.executor&quot;: &quot;Run&quot;,
     &quot;Application.main.java.Main.executor&quot;: &quot;Run&quot;,
     &quot;Maven.antlrv4_grammar_fuzzer [deploy].executor&quot;: &quot;Run&quot;,
@@ -76,7 +71,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/mohammad/dev/mutation-testing/grammar-mutation-testing-v2&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/mohammad/dev/mutation-testing/antlrv4-grammar-fuzzer/src/main/resources&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -102,6 +97,9 @@
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="utils" />
     </key>
   </component>
   <component name="RunManager" selected="Application.AntlrFuzzer">
@@ -283,7 +281,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712025823375</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="heaviest refactor ever">
+      <option name="closed" value="true" />
+      <created>1712242164826</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1712242164826</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -302,7 +308,8 @@
     <MESSAGE value="c13" />
     <MESSAGE value="c14" />
     <MESSAGE value="c15" />
-    <option name="LAST_COMMIT_MESSAGE" value="c15" />
+    <MESSAGE value="heaviest refactor ever" />
+    <option name="LAST_COMMIT_MESSAGE" value="heaviest refactor ever" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -402,8 +409,15 @@
           <line>100</line>
           <option name="timeStamp" value="100" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/utils/GenHelper.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="133" />
+        </line-breakpoint>
         <breakpoint type="java-exception">
-          <properties class="java.lang.RuntimeException" package="java.lang" />
+          <properties class="java.lang.RuntimeException" package="java.lang">
+            <option name="NOTIFY_CAUGHT" value="false" />
+          </properties>
           <option name="timeStamp" value="119" />
         </breakpoint>
         <breakpoint type="java-exception">
@@ -411,6 +425,13 @@
           <option name="timeStamp" value="120" />
         </breakpoint>
       </breakpoints>
+      <default-breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties>
+            <option name="NOTIFY_CAUGHT" value="false" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
