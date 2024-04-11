@@ -42,7 +42,7 @@ public class RandUtil extends Random {
         return c2sb(randElem(chars));
     }
 
-    private static void charsOfSet(String set, Collection<Character> result) {
+    private void charsOfSet(String set, Collection<Character> result) {
         StringBuilder sb = replaceScapeChars(set);
 
         for (int i = 1; i < sb.length()-1; i++) {
@@ -92,7 +92,7 @@ public class RandUtil extends Random {
     }
 
     public <S> S randElem(List<S> list) {
-        int a = nextInt(list.size());
+        int a = this.nextInt(list.size());
         return list.get(a);
     }
 }

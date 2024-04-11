@@ -1,9 +1,5 @@
 package fuzzer;
 
-import com.github.javaparser.JavaParser;
-import com.github.javaparser.ParseResult;
-import com.github.javaparser.StaticJavaParser;
-import com.github.javaparser.ast.CompilationUnit;
 import exception_handling.HardErrorStrategy;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -16,9 +12,11 @@ import utils.MapUtil;
 import utils.PostProcessor;
 import visitors.GenerateVisitor;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
-//todo check if map of ctx depth is really working(cache)
+//todo check if map of ctx depth is working(cache)
 
 public class AntlrFuzzer {
     private final GenerateVisitor generator;
@@ -31,11 +29,16 @@ public class AntlrFuzzer {
         result = PostProcessor.prettify(result);
         System.out.println(result);
         PostProcessor.analyzeSyntax(result);
-
     }
 
-    public AntlrFuzzer(String grammar_path, Integer seed) throws IOException {
-        GrammarSpecContext entireTree = parse(grammar_path);
+    public AntlrFuzzer(String grammarPath, Integer seed) throws IOException {
+        GrammarSpecContext entireTree = parse(grammarPath);
+        MapUtil<String, RuleSpecContext> rules = makeRuleMap(entireTree);
+        generator = new GenerateVisitor(rules, seed);
+    }
+
+    public AntlrFuzzer(FileInputStream grammarFile, Integer seed) throws IOException {
+        GrammarSpecContext entireTree = parse(grammarFile);
         MapUtil<String, RuleSpecContext> rules = makeRuleMap(entireTree);
         generator = new GenerateVisitor(rules, seed);
     }
@@ -58,6 +61,15 @@ public class AntlrFuzzer {
 
     private static GrammarSpecContext parse(String grammarPath) throws IOException {
         CharStream in = CharStreams.fromFileName(grammarPath);
+        ANTLRv4Lexer lexer = new ANTLRv4Lexer(in);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        ANTLRv4Parser parser = new ANTLRv4Parser(tokens);
+        parser.setErrorHandler(new HardErrorStrategy());
+        return parser.grammarSpec();
+    }
+
+    private static GrammarSpecContext parse(FileInputStream grammar) throws IOException {
+        CharStream in = CharStreams.fromStream(grammar);
         ANTLRv4Lexer lexer = new ANTLRv4Lexer(in);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         ANTLRv4Parser parser = new ANTLRv4Parser(tokens);
