@@ -37,7 +37,7 @@ public class AntlrFuzzer {
         generator = new GenerateVisitor(rules, seed);
     }
 
-    public AntlrFuzzer(FileInputStream grammarFile, Integer seed) throws IOException {
+    public AntlrFuzzer(InputStream grammarFile, Integer seed) throws IOException {
         GrammarSpecContext entireTree = parse(grammarFile);
         MapUtil<String, RuleSpecContext> rules = makeRuleMap(entireTree);
         generator = new GenerateVisitor(rules, seed);
@@ -68,7 +68,7 @@ public class AntlrFuzzer {
         return parser.grammarSpec();
     }
 
-    private static GrammarSpecContext parse(FileInputStream grammar) throws IOException {
+    private static GrammarSpecContext parse(InputStream grammar) throws IOException {
         CharStream in = CharStreams.fromStream(grammar);
         ANTLRv4Lexer lexer = new ANTLRv4Lexer(in);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
